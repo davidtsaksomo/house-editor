@@ -2,17 +2,34 @@
 
 public class GameManager : MonoBehaviour
 {
+    TerrainCollider terrainCollider;
+
+    void Start()
+    {
+        terrainCollider = Terrain.activeTerrain.GetComponent<TerrainCollider>();
+    }
+
     void Update()
     {
         if (Input.GetMouseButton(0))
         {
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y));
-            WallEditor.wallEditor.AddWall(mousePosition);
+            WallEditor.wallEditor.AddWall(getMousePosition());
         }
         else if (Input.GetMouseButton(1))
         {
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y));
-            WallEditor.wallEditor.RemoveWall(mousePosition);
+            WallEditor.wallEditor.RemoveWall(getMousePosition());
         }
+    }
+
+    Vector3 getMousePosition()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitData;
+
+        if (terrainCollider.Raycast(ray, out hitData, 1000))
+        {
+            return hitData.point;
+        }
+        return Vector3.positiveInfinity;
     }
 }
