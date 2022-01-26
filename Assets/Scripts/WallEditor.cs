@@ -14,9 +14,9 @@ public class WallEditor : MonoBehaviour
 
     WallData wallData = new WallData(GameConfiguration.worldWidth, GameConfiguration.worldLength);
 
-    GameObject[,,] wallInstance; // 3rd axis: 0 = top, 1 = right, 2 = bottom, 3 = left
+    TerrainCollider terrainCollider;
 
-    float clickMaxDistance = 0.2f;
+    float clickMaxDistance = 0.1f;
 
     private void Start()
     {
@@ -25,22 +25,13 @@ public class WallEditor : MonoBehaviour
             wallEditor = this;
         }
 
-        wallInstance = new GameObject[GameConfiguration.worldWidth, GameConfiguration.worldLength, 4];
+        terrainCollider = Terrain.activeTerrain.GetComponent<TerrainCollider>();
     }
 
-    public void AddWall(Vector3 worldPosition)
-    {
-        EditWall(worldPosition);
-    }
-
-    public void RemoveWall(Vector3 worldPosition)
-    {
-        EditWall(worldPosition, true);
-    }
-
-    void EditWall(Vector3 worldPosition, bool remove = false)
+    public void AddWall(Vector3 mousePosition)
     {
         // Get position on the grid
+        Vector3 worldPosition = getWorldMousePosition(mousePosition);
         Vector3 roundedPosition = new Vector3(Mathf.Round(worldPosition.x), 0f, Mathf.Round(worldPosition.z));
         Vector3 gridPosition = new Vector3(Mathf.Floor(worldPosition.x), 0f, Mathf.Floor(worldPosition.z));
 
@@ -58,47 +49,29 @@ public class WallEditor : MonoBehaviour
             {
                 if (gridPosition.x >= 1)
                 {
-                    if (!remove && !wallData.wallUnits[(int)gridPosition.x - 1, (int)gridPosition.z].Right)
+                    if (!wallData.wallUnits[(int)gridPosition.x - 1, (int)gridPosition.z].Right)
                     {
                         wallData.wallUnits[(int)gridPosition.x - 1, (int)gridPosition.z].Right = true;
-                        GameObject wall = Instantiate(wallPrefab, instancePosition, Quaternion.Euler(new Vector3(0, 90, 0)), wallParent.transform);
-                        wallInstance[(int)gridPosition.x - 1, (int)gridPosition.z, 1] = wall;
-                    }
-                    else if (remove && wallData.wallUnits[(int)gridPosition.x - 1, (int)gridPosition.z].Right)
-                    {
-                        wallData.wallUnits[(int)gridPosition.x - 1, (int)gridPosition.z].Right = false;
-                        Destroy(wallInstance[(int)gridPosition.x - 1, (int)gridPosition.z, 1]);
+                        Instantiate(wallPrefab, instancePosition, Quaternion.Euler(new Vector3(0, 90, 0)), wallParent.transform);
                     }
 
                 }
                 else
                 {
-                    if (!remove && !wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Left)
+                    if (!wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Left)
                     {
                         wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Left = true;
-                        GameObject wall = Instantiate(wallPrefab, instancePosition, Quaternion.Euler(new Vector3(0, 90, 0)), wallParent.transform);
-                        wallInstance[(int)gridPosition.x, (int)gridPosition.z, 3] = wall;
-                    }
-                    else if (remove && wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Left)
-                    {
-                        wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Left = false;
-                        Destroy(wallInstance[(int)gridPosition.x, (int)gridPosition.z, 3]);
+                        Instantiate(wallPrefab, instancePosition, Quaternion.Euler(new Vector3(0, 90, 0)), wallParent.transform);
                     }
                 }
 
             }
             else // wall on the right
             {
-                if (!remove && !wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Right)
+                if (!wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Right)
                 {
                     wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Right = true;
-                    GameObject wall = Instantiate(wallPrefab, instancePosition, Quaternion.Euler(new Vector3(0, 90, 0)), wallParent.transform);
-                    wallInstance[(int)gridPosition.x, (int)gridPosition.z, 1] = wall;
-                }
-                else if (remove && wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Right)
-                {
-                    wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Right = false;
-                    Destroy(wallInstance[(int)gridPosition.x, (int)gridPosition.z, 1]);
+                    Instantiate(wallPrefab, instancePosition, Quaternion.Euler(new Vector3(0, 90, 0)), wallParent.transform);
                 }
             }
 
@@ -112,47 +85,81 @@ public class WallEditor : MonoBehaviour
             {
                 if (gridPosition.z >= 1)
                 {
-                    if (!remove && !wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z - 1].Top)
+                    if (!wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z - 1].Top)
                     {
                         wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z - 1].Top = true;
-                        GameObject wall = Instantiate(wallPrefab, instancePosition, Quaternion.identity, wallParent.transform);
-                        wallInstance[(int)gridPosition.x, (int)gridPosition.z - 1, 0] = wall;
-                    }
-                    else if (remove && wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z - 1].Top)
-                    {
-                        wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z - 1].Top = false;
-                        Destroy(wallInstance[(int)gridPosition.x, (int)gridPosition.z - 1, 0]);
+                        Instantiate(wallPrefab, instancePosition, Quaternion.identity, wallParent.transform);
                     }
                 }
                 else
                 {
-                    if (!remove && !wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Bottom)
+                    if (!wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Bottom)
                     {
                         wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Bottom = true;
-                        GameObject wall = Instantiate(wallPrefab, instancePosition, Quaternion.identity, wallParent.transform);
-                        wallInstance[(int)gridPosition.x, (int)gridPosition.z, 2] = wall;
-                    }
-                    else if (remove && wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Bottom)
-                    {
-                        wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Bottom = false;
-                        Destroy(wallInstance[(int)gridPosition.x, (int)gridPosition.z, 2]);
+                        Instantiate(wallPrefab, instancePosition, Quaternion.identity, wallParent.transform);
                     }
                 }
             }
             else // wall on the top
             {
-                if (!remove && !wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Top)
+                if (!wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Top)
                 {
                     wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Top = true;
-                    GameObject wall = Instantiate(wallPrefab, instancePosition, Quaternion.identity, wallParent.transform);
-                    wallInstance[(int)gridPosition.x, (int)gridPosition.z, 0] = wall;
-                }
-                else if (remove && wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Top)
-                {
-                    wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Top = false;
-                    Destroy(wallInstance[(int)gridPosition.x, (int)gridPosition.z, 0]);
+                    Instantiate(wallPrefab, instancePosition, Quaternion.identity, wallParent.transform);
                 }
             }
         }
+    }
+
+    public void RemoveWall(Vector3 mousePosition)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+        GameObject removedWall;
+        
+        if (Physics.Raycast(ray, out RaycastHit hitData, 1000, 1 << LayerMask.NameToLayer("Wall")))
+        {
+            removedWall = hitData.collider.gameObject;
+
+            if ((int)Mathf.Round(removedWall.transform.eulerAngles.y) == 0)
+            {
+                int x = (int)Mathf.Floor(removedWall.transform.position.x);
+                int z = (int)Mathf.Round(removedWall.transform.position.z);
+                if (z >= 1)
+                {
+                    z -= 1;
+                    wallData.wallUnits[x, z].Top = false;
+                }
+                else
+                {
+                    wallData.wallUnits[x, z].Bottom = false;
+                }
+            }
+            else
+            {
+                int x = (int)Mathf.Round(removedWall.transform.position.x);
+                int z = (int)Mathf.Floor(removedWall.transform.position.z);
+                if (x >= 1)
+                {
+                    x -= 1;
+                    wallData.wallUnits[x, z].Right = false;
+                }
+                else
+                {
+                    wallData.wallUnits[x, z].Left = false;
+                }
+            }
+            Destroy(removedWall);
+        }
+    }
+
+    Vector3 getWorldMousePosition(Vector3 mousePosition)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+
+        if (terrainCollider.Raycast(ray, out RaycastHit hitData, 1000))
+        {
+            return hitData.point;
+        }
+        return Vector3.positiveInfinity;
     }
 }
