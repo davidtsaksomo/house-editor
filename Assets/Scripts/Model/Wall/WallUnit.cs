@@ -7,16 +7,16 @@ public interface IWallUnit
     bool Left { get; set; }
 }
 
-// Normal wall unit can only have right and bottom wall.
+// Normal wall unit can only have top and right wall.
 public class WallUnit : IWallUnit
 {
+    bool _top;
     bool _right;
-    bool _bottom;
 
-    public virtual bool Top
+    public bool Top
     {
-        get { return false; }
-        set { }
+        get { return _top; }
+        set { _top = value; }
     }
 
     public bool Right
@@ -25,10 +25,10 @@ public class WallUnit : IWallUnit
         set { _right = value; }
     }
 
-    public bool Bottom
+    public virtual bool Bottom
     {
-        get { return _bottom; }
-        set { _bottom = value; }
+        get { return false; }
+        set { }
     }
 
     public virtual bool Left
@@ -38,19 +38,19 @@ public class WallUnit : IWallUnit
     }
 }
 
-// Top most wall unit can have top wall in addition to right and bottom wall
-public class TopMostWallUnit : WallUnit
+// Bottom most wall unit can have bottom wall in addition to top and right wall
+public class BottomMostWallUnit : WallUnit
 {
-    bool _top;
+    bool _bottom;
 
-    public override bool Top
+    public override bool Bottom
     {
-        get { return _top; }
-        set { _top = value; }
+        get { return _bottom; }
+        set { _bottom = value; }
     }
 }
 
-// Left most wall unit can have left wall in addition to right and bottom wall
+// Left most wall unit can have left wall in addition to top and right wall
 public class LeftMostWallUnit : WallUnit
 {
     bool _left;
@@ -62,8 +62,8 @@ public class LeftMostWallUnit : WallUnit
     }
 }
 
-// Topleft most wall unit can have wall on all 4 sides.
-public class TopLeftMostWallUnit : TopMostWallUnit
+// Bottomleft most wall unit can have wall on all 4 sides.
+public class BottomLeftMostWallUnit : BottomMostWallUnit
 {
     bool _left;
 
