@@ -16,6 +16,8 @@ public class WallEditor : MonoBehaviour
 
     GameObject[,,] wallInstance; // 3rd axis: 0 = top, 1 = right, 2 = bottom, 3 = left
 
+    float clickMaxDistance = 0.2f;
+
     private void Start()
     {
         if (!wallEditor)
@@ -42,9 +44,15 @@ public class WallEditor : MonoBehaviour
         Vector3 roundedPosition = new Vector3(Mathf.Round(worldPosition.x), 0f, Mathf.Round(worldPosition.z));
         Vector3 gridPosition = new Vector3(Mathf.Floor(worldPosition.x), 0f, Mathf.Floor(worldPosition.z));
 
-        if (Mathf.Abs(roundedPosition.x - worldPosition.x) < Mathf.Abs(roundedPosition.z - worldPosition.z)) // wall on left or right
+        float xDistanceToGridLine = Mathf.Abs(worldPosition.x - roundedPosition.x);
+        float zDistanceToGridLine = Mathf.Abs(worldPosition.z - roundedPosition.z);
+
+        float xDistanceToGridLineCenter = Mathf.Abs(worldPosition.x - (gridPosition.x + 0.5f));
+        float zDistanceToGridLineCenter = Mathf.Abs(worldPosition.z - (gridPosition.z + 0.5f));
+
+        if (xDistanceToGridLine < zDistanceToGridLine && zDistanceToGridLineCenter < clickMaxDistance) // wall on left or right
         {
-            Vector3 instancePosition = new Vector3(roundedPosition.x, roundedPosition.y, gridPosition.z + 0.5f);
+            Vector3 instancePosition = new Vector3(roundedPosition.x, (wallPrefab.transform.localScale.y / 2), gridPosition.z + 0.5f);
 
             if (roundedPosition.x <= worldPosition.x) // wall on the left
             {
@@ -96,9 +104,9 @@ public class WallEditor : MonoBehaviour
 
 
         }
-        else // wall on top or bottom
+        else if (xDistanceToGridLine > zDistanceToGridLine && xDistanceToGridLineCenter < clickMaxDistance) // wall on top or bottom
         {
-            Vector3 instancePosition = new Vector3(gridPosition.x + 0.5f, roundedPosition.y, roundedPosition.z);
+            Vector3 instancePosition = new Vector3(gridPosition.x + 0.5f, (wallPrefab.transform.localScale.y / 2), roundedPosition.z);
 
             if (roundedPosition.z <= worldPosition.z) // wall on the bottom
             {
