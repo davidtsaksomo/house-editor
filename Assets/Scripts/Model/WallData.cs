@@ -1,30 +1,32 @@
+using UnityEngine;
 public class WallData
 {
-    public IWallUnit[,] wallUnits;
+    public Wall[,] walls;
 
     public WallData(int width, int length)
     {
-        wallUnits = new IWallUnit[width, length];
+        walls = new Wall[width, length];
 
         for (int x = 0; x < width; x++)
         {
             for (int z = 0; z < length; z++)
             {
+                walls[x, z] = new Wall();
                 if (x == 0 && z == 0)
                 {
-                    wallUnits[x, z] = new BottomLeftMostWallUnit();
+                    walls[x, z].wallUnit = new BottomLeftMostWallUnit();
                 } 
                 else if (x == 0)
                 {
-                    wallUnits[x, z] = new LeftMostWallUnit();
+                    walls[x, z].wallUnit = new LeftMostWallUnit();
                 }
                 else if (z == 0)
                 {
-                    wallUnits[x, z] = new BottomMostWallUnit();
+                    walls[x, z].wallUnit = new BottomMostWallUnit();
                 }
                 else
                 {
-                    wallUnits[x, z] = new WallUnit();
+                    walls[x, z].wallUnit = new WallUnit();
                 }
             }
         }

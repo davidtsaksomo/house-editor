@@ -6,11 +6,11 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            WallEditor.wallEditor.AddWall(Input.mousePosition);
+           WallEditor.wallEditor.AddWall(Input.mousePosition);
         }
         else if (Input.GetMouseButton(1))
         {
-            WallEditor.wallEditor.RemoveWall(Input.mousePosition);
+          WallEditor.wallEditor.RemoveWall(Input.mousePosition);
         }
     }
 }

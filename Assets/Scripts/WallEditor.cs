@@ -12,9 +12,8 @@ public class WallEditor : MonoBehaviour
     [SerializeField]
     GameObject wallParent = null;
 
-    WallData wallData = new WallData(GameConfiguration.worldWidth, GameConfiguration.worldLength);
-
     TerrainCollider terrainCollider;
+    WallData wallData;
 
     float clickMaxDistance = 0.1f;
 
@@ -26,6 +25,7 @@ public class WallEditor : MonoBehaviour
         }
 
         terrainCollider = Terrain.activeTerrain.GetComponent<TerrainCollider>();
+        wallData = GameData.wallData;
     }
 
     public void AddWall(Vector3 mousePosition)
@@ -49,18 +49,18 @@ public class WallEditor : MonoBehaviour
             {
                 if (gridPosition.x >= 1)
                 {
-                    if (!wallData.wallUnits[(int)gridPosition.x - 1, (int)gridPosition.z].Right)
+                    if (!wallData.walls[(int)gridPosition.x - 1, (int)gridPosition.z].wallUnit.Right)
                     {
-                        wallData.wallUnits[(int)gridPosition.x - 1, (int)gridPosition.z].Right = true;
+                        wallData.walls[(int)gridPosition.x - 1, (int)gridPosition.z].wallUnit.Right = true;
                         Instantiate(wallPrefab, instancePosition, Quaternion.Euler(new Vector3(0, 90, 0)), wallParent.transform);
                     }
 
                 }
                 else
                 {
-                    if (!wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Left)
+                    if (!wallData.walls[(int)gridPosition.x, (int)gridPosition.z].wallUnit.Left)
                     {
-                        wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Left = true;
+                        wallData.walls[(int)gridPosition.x, (int)gridPosition.z].wallUnit.Left = true;
                         Instantiate(wallPrefab, instancePosition, Quaternion.Euler(new Vector3(0, 90, 0)), wallParent.transform);
                     }
                 }
@@ -68,9 +68,9 @@ public class WallEditor : MonoBehaviour
             }
             else // wall on the right
             {
-                if (!wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Right)
+                if (!wallData.walls[(int)gridPosition.x, (int)gridPosition.z].wallUnit.Right)
                 {
-                    wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Right = true;
+                    wallData.walls[(int)gridPosition.x, (int)gridPosition.z].wallUnit.Right = true;
                     Instantiate(wallPrefab, instancePosition, Quaternion.Euler(new Vector3(0, 90, 0)), wallParent.transform);
                 }
             }
@@ -85,26 +85,26 @@ public class WallEditor : MonoBehaviour
             {
                 if (gridPosition.z >= 1)
                 {
-                    if (!wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z - 1].Top)
+                    if (!wallData.walls[(int)gridPosition.x, (int)gridPosition.z - 1].wallUnit.Top)
                     {
-                        wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z - 1].Top = true;
+                        wallData.walls[(int)gridPosition.x, (int)gridPosition.z - 1].wallUnit.Top = true;
                         Instantiate(wallPrefab, instancePosition, Quaternion.identity, wallParent.transform);
                     }
                 }
                 else
                 {
-                    if (!wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Bottom)
+                    if (!wallData.walls[(int)gridPosition.x, (int)gridPosition.z].wallUnit.Bottom)
                     {
-                        wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Bottom = true;
+                        wallData.walls[(int)gridPosition.x, (int)gridPosition.z].wallUnit.Bottom = true;
                         Instantiate(wallPrefab, instancePosition, Quaternion.identity, wallParent.transform);
                     }
                 }
             }
             else // wall on the top
             {
-                if (!wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Top)
+                if (!wallData.walls[(int)gridPosition.x, (int)gridPosition.z].wallUnit.Top)
                 {
-                    wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Top = true;
+                    wallData.walls[(int)gridPosition.x, (int)gridPosition.z].wallUnit.Top = true;
                     Instantiate(wallPrefab, instancePosition, Quaternion.identity, wallParent.transform);
                 }
             }
@@ -127,11 +127,11 @@ public class WallEditor : MonoBehaviour
                 if (z >= 1)
                 {
                     z -= 1;
-                    wallData.wallUnits[x, z].Top = false;
+                    wallData.walls[x, z].wallUnit.Top = false;
                 }
                 else
                 {
-                    wallData.wallUnits[x, z].Bottom = false;
+                    wallData.walls[x, z].wallUnit.Bottom = false;
                 }
             }
             else
@@ -141,11 +141,11 @@ public class WallEditor : MonoBehaviour
                 if (x >= 1)
                 {
                     x -= 1;
-                    wallData.wallUnits[x, z].Right = false;
+                    wallData.walls[x, z].wallUnit.Right = false;
                 }
                 else
                 {
-                    wallData.wallUnits[x, z].Left = false;
+                    wallData.walls[x, z].wallUnit.Left = false;
                 }
             }
             Destroy(removedWall);
