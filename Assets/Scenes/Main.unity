@@ -398,7 +398,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 15.2, y: 15, z: 7.75}
+  m_LocalPosition: {x: 45, y: 15, z: 22.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -413,8 +413,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1865607616}
-  - component: {fileID: 1865607617}
   - component: {fileID: 1865607618}
+  - component: {fileID: 1865607617}
+  - component: {fileID: 1865607619}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -461,6 +462,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1de688550477c9f47af12ba287c8d464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1865607619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865607615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 154d1402a8d73314d9c6efc6a7dd8e8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrain: {fileID: 441770845}
 --- !u!1 &2046564093
 GameObject:
   m_ObjectHideFlags: 0
