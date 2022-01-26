@@ -8,7 +8,7 @@ public interface IWallUnit
 }
 
 // Normal wall unit can only have right and bottom wall.
-public class WallUnit: IWallUnit
+public class WallUnit : IWallUnit
 {
     bool _right;
     bool _bottom;
@@ -51,7 +51,7 @@ public class TopMostWallUnit : WallUnit
 }
 
 // Left most wall unit can have left wall in addition to right and bottom wall
-public class LeftMostWallUnit: WallUnit
+public class LeftMostWallUnit : WallUnit
 {
     bool _left;
 
@@ -63,7 +63,7 @@ public class LeftMostWallUnit: WallUnit
 }
 
 // Topleft most wall unit can have wall on all 4 sides.
-public class TopLeftMostWallUnit: TopMostWallUnit
+public class TopLeftMostWallUnit : TopMostWallUnit
 {
     bool _left;
 
