@@ -16,10 +16,6 @@ public class InformationTextController : MonoBehaviour
         {
             instance = this;
         }
-    }
-
-    private void Start()
-    {
         textField = GetComponent<TextMeshProUGUI>();
     }
 
