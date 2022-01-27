@@ -1,5 +1,9 @@
-﻿public class Wall
+﻿using UnityEngine;
+
+[System.Serializable]
+public class Wall
 {
-    public IWallUnit wallUnit;
-    public IWallPropUnit wallPropUnit;
+    public bool exist = false;
+    public Color color = Color.white;
+    public IWallProp wallProp;
 }

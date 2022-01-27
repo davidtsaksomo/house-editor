@@ -13,16 +13,16 @@ public class GridRenderer : MonoBehaviour
 
     void Start()
     {
-        for (int x = 0; x <= GameConfiguration.worldWidth; x++)
+        for (int x = 0; x <= GameConstants.worldWidth; x++)
         {
-            GameObject gridLine = Instantiate(gridLinePrefab, new Vector3(x, 0.01f, (float)GameConfiguration.worldLength / 2), Quaternion.identity, gridLineParent.transform);
-            gridLine.transform.localScale = new Vector3(gridLineThickness / GameConstants.planeScaleMultiplier, 1, (float)GameConfiguration.worldLength / 10);
+            GameObject gridLine = Instantiate(gridLinePrefab, new Vector3(x, 0.01f, (float)GameConstants.worldLength / 2), Quaternion.identity, gridLineParent.transform);
+            gridLine.transform.localScale = new Vector3(gridLineThickness / GameConstants.planeScaleMultiplier, 1, (float)GameConstants.worldLength / 10);
         }
 
-        for (int z = 0; z <= GameConfiguration.worldLength; z++)
+        for (int z = 0; z <= GameConstants.worldLength; z++)
         {
-            GameObject gridLine = Instantiate(gridLinePrefab, new Vector3((float)GameConfiguration.worldWidth / 2, 0.01f, z), Quaternion.identity, gridLineParent.transform);
-            gridLine.transform.localScale = new Vector3((float)GameConfiguration.worldWidth / 10, 1, gridLineThickness / GameConstants.planeScaleMultiplier);
+            GameObject gridLine = Instantiate(gridLinePrefab, new Vector3((float)GameConstants.worldWidth / 2, 0.01f, z), Quaternion.identity, gridLineParent.transform);
+            gridLine.transform.localScale = new Vector3((float)GameConstants.worldWidth / 10, 1, gridLineThickness / GameConstants.planeScaleMultiplier);
         }
     }
 }

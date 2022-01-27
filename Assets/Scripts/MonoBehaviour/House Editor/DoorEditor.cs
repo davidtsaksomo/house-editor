@@ -74,9 +74,9 @@ public class DoorEditor : MonoBehaviour
                 switch (position)
                 {
                     case Position.top:
-                        if (wallData.walls[x, z].wallPropUnit.Top == null)
+                        if (wallData.wallUnits[x, z].Top.wallProp == null)
                         {
-                            wallData.walls[x, z].wallPropUnit.Top = new Door();
+                            wallData.wallUnits[x, z].Top.wallProp = new Door();
                         }
                         else
                         {
@@ -84,9 +84,9 @@ public class DoorEditor : MonoBehaviour
                         }
                         break;
                     case Position.right:
-                        if (wallData.walls[x, z].wallPropUnit.Right == null)
+                        if (wallData.wallUnits[x, z].Right.wallProp == null)
                         {
-                            wallData.walls[x, z].wallPropUnit.Right = new Door();
+                            wallData.wallUnits[x, z].Right.wallProp = new Door();
                         }
                         else
                         {
@@ -94,9 +94,9 @@ public class DoorEditor : MonoBehaviour
                         }
                         break;
                     case Position.bottom:
-                        if (wallData.walls[x, z].wallPropUnit.Bottom == null)
+                        if (wallData.wallUnits[x, z].Bottom.wallProp == null)
                         {
-                            wallData.walls[x, z].wallPropUnit.Bottom = new Door();
+                            wallData.wallUnits[x, z].Bottom.wallProp = new Door();
                         }
                         else
                         {
@@ -104,9 +104,9 @@ public class DoorEditor : MonoBehaviour
                         }
                         break;
                     case Position.left:
-                        if (wallData.walls[x, z].wallPropUnit.Left == null)
+                        if (wallData.wallUnits[x, z].Left.wallProp == null)
                         {
-                            wallData.walls[x, z].wallPropUnit.Left = new Door();
+                            wallData.wallUnits[x, z].Left.wallProp = new Door();
                         }
                         else
                         {
@@ -122,16 +122,16 @@ public class DoorEditor : MonoBehaviour
                 switch (position)
                 {
                     case Position.top:
-                        wallData.walls[x, z].wallPropUnit.Top = null;
+                        wallData.wallUnits[x, z].Top.wallProp = null;
                         break;
                     case Position.right:
-                        wallData.walls[x, z].wallPropUnit.Right = null;
+                        wallData.wallUnits[x, z].Right.wallProp = null;
                         break;
                     case Position.bottom:
-                        wallData.walls[x, z].wallPropUnit.Bottom = null;
+                        wallData.wallUnits[x, z].Bottom.wallProp = null;
                         break;
                     case Position.left:
-                        wallData.walls[x, z].wallPropUnit.Left = null;
+                        wallData.wallUnits[x, z].Left.wallProp = null;
                         break;
                 }
                 ObjectPooler.instance.DespawnToPool("Door", targetObject);
