@@ -7,20 +7,20 @@ public class DoorEditor : MonoBehaviour
     // Singleton instance
     public static DoorEditor instance;
 
-    private void Start()
-    {
-        if (!instance)
-        {
-            instance = this;
-        }
-    }
-
     enum Position
     {
         top,
         right,
         bottom,
         left
+    }
+
+    private void Awake()
+    {
+        if (!instance)
+        {
+            instance = this;
+        }
     }
 
     public void AddDoor(Vector3 mousePosition, bool delete = false)

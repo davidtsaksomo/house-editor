@@ -7,7 +7,7 @@ public class FurnitureList : MonoBehaviour
     [SerializeField]
     public GameObject[] furnitures;
 
-    void Start()
+    void Awake()
     {
         if (!instance)
         {

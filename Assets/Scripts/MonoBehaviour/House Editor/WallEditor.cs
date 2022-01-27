@@ -12,26 +12,27 @@ public class WallEditor : MonoBehaviour
     [SerializeField]
     GameObject wallParent = null;
 
-    TerrainCollider terrainCollider;
     WallData wallData;
 
     float clickMaxDistance = 0.1f;
 
-    private void Start()
+    private void Awake()
     {
         if (!instance)
         {
             instance = this;
         }
+    }
 
-        terrainCollider = Terrain.activeTerrain.GetComponent<TerrainCollider>();
+    private void Start()
+    {
         wallData = GameData.wallData;
     }
 
     public void AddWall(Vector3 mousePosition)
     {
         // Get position on the grid
-        Vector3 worldPosition = getWorldMousePosition(mousePosition);
+        Vector3 worldPosition = MouseToWorldPoint.mouseToTerrainPosition(mousePosition);
         Vector3 roundedPosition = new Vector3(Mathf.Round(worldPosition.x), 0f, Mathf.Round(worldPosition.z));
         Vector3 gridPosition = new Vector3(Mathf.Floor(worldPosition.x), 0f, Mathf.Floor(worldPosition.z));
 
@@ -154,16 +155,5 @@ public class WallEditor : MonoBehaviour
             }
             ObjectPooler.instance.DespawnToPool("Wall", removedWall);
         }
-    }
-
-    Vector3 getWorldMousePosition(Vector3 mousePosition)
-    {
-        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-
-        if (terrainCollider.Raycast(ray, out RaycastHit hitData, 1000))
-        {
-            return hitData.point;
-        }
-        return Vector3.positiveInfinity;
     }
 }

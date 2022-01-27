@@ -4,15 +4,37 @@ using UnityEngine;
 
 public class FurnitureEditor : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    // Singleton
+    public static FurnitureEditor instance;
+
+    GameObject selectedFurniture;
+    GameObject selectedFurnitureInstance;
+
+    private void Awake()
     {
-        
+        if (!instance)
+        {
+            instance = this;
+        }
     }
 
-    // Update is called once per frame
+    private void Start()
+    {
+        selectedFurniture = FurnitureList.instance.furnitures[1];
+        selectedFurnitureInstance = Instantiate(selectedFurniture);
+    }
+
     void Update()
     {
-        
+        Vector3 mouseTerrainPosition = MouseToWorldPoint.mouseToTerrainPosition(Input.mousePosition);
+        Vector3 furniturePosition = new Vector3(mouseTerrainPosition.x, selectedFurnitureInstance.GetComponent<Collider>().bounds.size.y / 2, mouseTerrainPosition.z);
+        selectedFurnitureInstance.transform.position = furniturePosition;
+    }
+
+    public void PlaceFurniture()
+    {
+        Vector3 mouseTerrainPosition = MouseToWorldPoint.mouseToTerrainPosition(Input.mousePosition);
+        Vector3 furniturePosition = new Vector3(mouseTerrainPosition.x, selectedFurnitureInstance.GetComponent<Collider>().bounds.size.y / 2, mouseTerrainPosition.z);
+        Instantiate(selectedFurniture, furniturePosition, Quaternion.identity);
     }
 }

@@ -28,6 +28,13 @@ public class GameManager : MonoBehaviour
             }
             return;
         }
-
+        if (Input.GetMouseButtonDown(0))
+        {
+            FurnitureEditor.instance.PlaceFurniture();
+        }
+        else if (Input.GetMouseButton(1))
+        {
+           
+        }
     }
 }

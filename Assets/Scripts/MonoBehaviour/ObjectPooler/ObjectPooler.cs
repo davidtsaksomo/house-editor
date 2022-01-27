@@ -20,13 +20,16 @@ public class ObjectPooler : MonoBehaviour
     // Map pool with its name in dictionary for easy access
     Dictionary<string, Pool> poolsDictionary;
 
-    void Start()
+    private void Awake()
     {
         if (!instance)
         {
             instance = this;
         }
+    }
 
+    void Start()
+    {
         objectPools = new Dictionary<string, Queue<GameObject>>();
         poolsDictionary = new Dictionary<string, Pool>();
         foreach (Pool pool in pools)
