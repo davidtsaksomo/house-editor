@@ -3,15 +3,15 @@
 public class FurnitureList : MonoBehaviour
 {
     // Singleton
-    public static FurnitureList furnitureList;
+    public static FurnitureList instance;
     [SerializeField]
     public GameObject[] furnitures;
 
     void Start()
     {
-        if (!furnitureList)
+        if (!instance)
         {
-            furnitureList = this;
+            instance = this;
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class WallEditor : MonoBehaviour
 {
     // Singleton instance
-    public static WallEditor wallEditor;
+    public static WallEditor instance;
 
     [SerializeField]
     GameObject wallPrefab = null;
@@ -19,9 +19,9 @@ public class WallEditor : MonoBehaviour
 
     private void Start()
     {
-        if (!wallEditor)
+        if (!instance)
         {
-            wallEditor = this;
+            instance = this;
         }
 
         terrainCollider = Terrain.activeTerrain.GetComponent<TerrainCollider>();
@@ -52,7 +52,7 @@ public class WallEditor : MonoBehaviour
                     if (!wallData.walls[(int)gridPosition.x - 1, (int)gridPosition.z].wallUnit.Right)
                     {
                         wallData.walls[(int)gridPosition.x - 1, (int)gridPosition.z].wallUnit.Right = true;
-                        Instantiate(wallPrefab, instancePosition, Quaternion.Euler(new Vector3(0, 90, 0)), wallParent.transform);
+                        ObjectPooler.instance.SpawnFromPool("Wall", instancePosition, Quaternion.Euler(new Vector3(0, 90, 0)), wallParent.transform);
                     }
 
                 }
@@ -61,7 +61,7 @@ public class WallEditor : MonoBehaviour
                     if (!wallData.walls[(int)gridPosition.x, (int)gridPosition.z].wallUnit.Left)
                     {
                         wallData.walls[(int)gridPosition.x, (int)gridPosition.z].wallUnit.Left = true;
-                        Instantiate(wallPrefab, instancePosition, Quaternion.Euler(new Vector3(0, 90, 0)), wallParent.transform);
+                        ObjectPooler.instance.SpawnFromPool("Wall", instancePosition, Quaternion.Euler(new Vector3(0, 90, 0)), wallParent.transform);
                     }
                 }
 
@@ -71,7 +71,7 @@ public class WallEditor : MonoBehaviour
                 if (!wallData.walls[(int)gridPosition.x, (int)gridPosition.z].wallUnit.Right)
                 {
                     wallData.walls[(int)gridPosition.x, (int)gridPosition.z].wallUnit.Right = true;
-                    Instantiate(wallPrefab, instancePosition, Quaternion.Euler(new Vector3(0, 90, 0)), wallParent.transform);
+                    ObjectPooler.instance.SpawnFromPool("Wall", instancePosition, Quaternion.Euler(new Vector3(0, 90, 0)), wallParent.transform);
                 }
             }
 
@@ -88,7 +88,7 @@ public class WallEditor : MonoBehaviour
                     if (!wallData.walls[(int)gridPosition.x, (int)gridPosition.z - 1].wallUnit.Top)
                     {
                         wallData.walls[(int)gridPosition.x, (int)gridPosition.z - 1].wallUnit.Top = true;
-                        Instantiate(wallPrefab, instancePosition, Quaternion.identity, wallParent.transform);
+                        ObjectPooler.instance.SpawnFromPool("Wall", instancePosition, Quaternion.identity, wallParent.transform);
                     }
                 }
                 else
@@ -96,7 +96,7 @@ public class WallEditor : MonoBehaviour
                     if (!wallData.walls[(int)gridPosition.x, (int)gridPosition.z].wallUnit.Bottom)
                     {
                         wallData.walls[(int)gridPosition.x, (int)gridPosition.z].wallUnit.Bottom = true;
-                        Instantiate(wallPrefab, instancePosition, Quaternion.identity, wallParent.transform);
+                        ObjectPooler.instance.SpawnFromPool("Wall", instancePosition, Quaternion.identity, wallParent.transform);
                     }
                 }
             }
@@ -105,7 +105,7 @@ public class WallEditor : MonoBehaviour
                 if (!wallData.walls[(int)gridPosition.x, (int)gridPosition.z].wallUnit.Top)
                 {
                     wallData.walls[(int)gridPosition.x, (int)gridPosition.z].wallUnit.Top = true;
-                    Instantiate(wallPrefab, instancePosition, Quaternion.identity, wallParent.transform);
+                    ObjectPooler.instance.SpawnFromPool("Wall", instancePosition, Quaternion.identity, wallParent.transform);
                 }
             }
         }
@@ -152,7 +152,7 @@ public class WallEditor : MonoBehaviour
                     wallData.walls[x, z].wallPropUnit.Left = null;
                 }
             }
-            Destroy(removedWall);
+            ObjectPooler.instance.DespawnToPool("Wall", removedWall);
         }
     }
 

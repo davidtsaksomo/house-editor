@@ -5,15 +5,13 @@ using UnityEngine;
 public class DoorEditor : MonoBehaviour
 {
     // Singleton instance
-    public static DoorEditor doorEditor;
-    [SerializeField]
-    GameObject doorPrefab = null;
+    public static DoorEditor instance;
 
     private void Start()
     {
-        if (!doorEditor)
+        if (!instance)
         {
-            doorEditor = this;
+            instance = this;
         }
     }
 
@@ -117,7 +115,7 @@ public class DoorEditor : MonoBehaviour
                         break;
                 }
 
-                GameObject door = Instantiate(doorPrefab, wallTransform.position, wallTransform.rotation, wallTransform);
+                GameObject door = ObjectPooler.instance.SpawnFromPool("Door", wallTransform.position, wallTransform.rotation, wallTransform);
                 // Adjust local scale
                 door.transform.localScale = new Vector3(door.transform.localScale.x / wallTransform.localScale.x, door.transform.localScale.y / wallTransform.localScale.y, door.transform.localScale.z / wallTransform.localScale.z);
             }
@@ -138,7 +136,7 @@ public class DoorEditor : MonoBehaviour
                         wallData.walls[x, z].wallPropUnit.Left = null;
                         break;
                 }
-                Destroy(targetObject);
+                ObjectPooler.instance.DespawnToPool("Door", targetObject);
             }
         }
     }

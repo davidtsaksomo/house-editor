@@ -8,11 +8,11 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
-                DoorEditor.doorEditor.AddDoor(Input.mousePosition);
+                DoorEditor.instance.AddDoor(Input.mousePosition);
             }
             else if (Input.GetMouseButton(1))
             {
-                DoorEditor.doorEditor.AddDoor(Input.mousePosition, true);
+                DoorEditor.instance.AddDoor(Input.mousePosition, true);
             }
             return;
         }
@@ -20,11 +20,11 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
-                WallEditor.wallEditor.AddWall(Input.mousePosition);
+                WallEditor.instance.AddWall(Input.mousePosition);
             }
             else if (Input.GetMouseButton(1))
             {
-                WallEditor.wallEditor.RemoveWall(Input.mousePosition);
+                WallEditor.instance.RemoveWall(Input.mousePosition);
             }
             return;
         }
