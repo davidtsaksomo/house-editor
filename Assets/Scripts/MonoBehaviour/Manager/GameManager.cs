@@ -33,12 +33,19 @@ public class GameManager : MonoBehaviour
                 DoorEditor.instance.AddDoor(Input.mousePosition, true);
             }
         }
-        else if (GameStateManager.instance.gameState == GameState.addingFurniture)
+        else if (GameStateManager.instance.gameState == GameState.editingFurniture)
         {
-            FurnitureEditor.instance.ShowFurnitureOnCursor(Input.mousePosition);
             if (Input.GetMouseButtonDown(0))
             {
-                FurnitureEditor.instance.PlaceFurniture();
+                FurnitureEditor.instance.PlaceFurniture(Input.mousePosition);
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                FurnitureEditor.instance.CycleFurniture();
+            }
+            else
+            {
+                FurnitureEditor.instance.RotateFurniture(Input.mouseScrollDelta.y);
             }
         }
     }

@@ -4,7 +4,6 @@ public enum GameState
 {
     editingWall,
     editingWallProp,
-    addingFurniture,
     editingFurniture,
     changingColor
 }

@@ -10,11 +10,9 @@ public class ButtonManager : MonoBehaviour
     [SerializeField]
     Button editDoorButton = null;
     [SerializeField]
-    Button addFurnitureButton = null;
-    [SerializeField]
     Button editFurnitureButton = null;
     [SerializeField]
-    Button changeColorBUtton = null;
+    Button changeColorButton = null;
     [SerializeField]
     Button saveLayoutButton = null;
     [SerializeField]
@@ -26,15 +24,13 @@ public class ButtonManager : MonoBehaviour
     {
         editWallButton.onClick.AddListener( delegate { changeGameState(GameState.editingWall); });
         editDoorButton.onClick.AddListener(delegate { changeGameState(GameState.editingWallProp); });
-        addFurnitureButton.onClick.AddListener(delegate { changeGameState(GameState.addingFurniture); });
         editFurnitureButton.onClick.AddListener(delegate { changeGameState(GameState.editingFurniture); });
-        changeColorBUtton.onClick.AddListener(delegate { changeGameState(GameState.changingColor); });
+        changeColorButton.onClick.AddListener(delegate { changeGameState(GameState.changingColor); });
 
         stateButtonList.Add(editWallButton);
         stateButtonList.Add(editDoorButton);
-        stateButtonList.Add(addFurnitureButton);
         stateButtonList.Add(editFurnitureButton);
-        stateButtonList.Add(changeColorBUtton);
+        stateButtonList.Add(changeColorButton);
 
         selectButtonBasedOnState(GameStateManager.instance.gameState);
     }
@@ -58,16 +54,12 @@ public class ButtonManager : MonoBehaviour
                 selectedButton = editDoorButton;
                 InformationTextController.instance.setText("Left click on a wall to place door. Right click on a door to remove.");
                 break;
-            case GameState.addingFurniture:
-                selectedButton = addFurnitureButton;
-                InformationTextController.instance.setText("Left click to place furniture. Right click to change furniture.");
-                break;
             case GameState.editingFurniture:
                 selectedButton = editFurnitureButton;
-                InformationTextController.instance.setText("Coming soon.");
+                InformationTextController.instance.setText("Left click to place furniture. Right click change furniture. Scroll wheel to rotate furniture.");
                 break;
             case GameState.changingColor:
-                selectedButton = changeColorBUtton;
+                selectedButton = changeColorButton;
                 InformationTextController.instance.setText("Coming soon.");
                 break;
         }
