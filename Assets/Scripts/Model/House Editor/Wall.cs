@@ -4,6 +4,6 @@
 public class Wall
 {
     public bool exist = false;
-    public Color color = Color.white;
+    public float[] color = new float[3];
     public IWallProp wallProp;
 }

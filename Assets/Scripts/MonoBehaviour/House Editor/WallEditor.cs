@@ -26,7 +26,7 @@ public class WallEditor : MonoBehaviour
 
     private void Start()
     {
-        wallData = GameData.wallData;
+        wallData = GameData.instance.wallData;
     }
 
     public void AddWall(Vector3 mousePosition)

@@ -1,4 +1,5 @@
-﻿public class Door : IWallProp
+﻿[System.Serializable]
+public class Door : IWallProp
 {
     const string _name = "Door";
     public string Name

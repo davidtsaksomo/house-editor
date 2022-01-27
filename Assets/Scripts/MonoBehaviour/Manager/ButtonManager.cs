@@ -26,6 +26,21 @@ public class ButtonManager : MonoBehaviour
         editDoorButton.onClick.AddListener(delegate { changeGameState(GameState.editingWallProp); });
         editFurnitureButton.onClick.AddListener(delegate { changeGameState(GameState.editingFurniture); });
         changeColorButton.onClick.AddListener(delegate { changeGameState(GameState.changingColor); });
+        saveLayoutButton.onClick.AddListener( () => {
+            GameData.instance.SaveLayout();
+            InformationTextController.instance.setText("Saved!");
+        });
+        loadLayoutButton.onClick.AddListener( () => {
+            if (GameData.instance.LoadLayout())
+            {
+                InformationTextController.instance.setText("Loaded!");
+            }
+            else
+            {
+                InformationTextController.instance.setText("Can't load");
+            }
+            
+        });
 
         stateButtonList.Add(editWallButton);
         stateButtonList.Add(editDoorButton);
