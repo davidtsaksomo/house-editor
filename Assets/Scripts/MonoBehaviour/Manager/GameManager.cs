@@ -16,13 +16,18 @@ public class GameManager : MonoBehaviour
             }
             return;
         }
-        if (Input.GetMouseButton(0))
+        if (Input.GetButton("Fire1"))
         {
-           WallEditor.wallEditor.AddWall(Input.mousePosition);
+            if (Input.GetMouseButton(0))
+            {
+                WallEditor.wallEditor.AddWall(Input.mousePosition);
+            }
+            else if (Input.GetMouseButton(1))
+            {
+                WallEditor.wallEditor.RemoveWall(Input.mousePosition);
+            }
+            return;
         }
-        else if (Input.GetMouseButton(1))
-        {
-          WallEditor.wallEditor.RemoveWall(Input.mousePosition);
-        }
+
     }
 }
