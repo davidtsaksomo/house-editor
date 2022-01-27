@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjectPooler : MonoBehaviour
 {
     [System.Serializable]
-    class Pool
+    public class Pool
     {
         public string name;
         public GameObject prefab;
@@ -51,7 +51,7 @@ public class ObjectPooler : MonoBehaviour
 
         if (objectPools[objectName].Count == 0)
         {
-            return Instantiate(poolsDictionary[objectName].prefab, position, rotation);
+            return Instantiate(poolsDictionary[objectName].prefab, position, rotation, parent);
         }
         GameObject objectToSpawn = objectPools[objectName].Dequeue();
 
