@@ -52,18 +52,23 @@ public class ButtonManager : MonoBehaviour
         {
             case GameState.editingWall:
                 selectedButton = editWallButton;
+                InformationTextController.instance.setText("Left click and drag to place wall. Right click and drag to remove wall.");
                 break;
             case GameState.editingWallProp:
                 selectedButton = editDoorButton;
+                InformationTextController.instance.setText("Left click on a wall to place door. Right click on a door to remove.");
                 break;
             case GameState.addingFurniture:
                 selectedButton = addFurnitureButton;
+                InformationTextController.instance.setText("Left click to place furniture. Right click to change furniture.");
                 break;
             case GameState.editingFurniture:
                 selectedButton = editFurnitureButton;
+                InformationTextController.instance.setText("Coming soon.");
                 break;
             case GameState.changingColor:
                 selectedButton = changeColorBUtton;
+                InformationTextController.instance.setText("Coming soon.");
                 break;
         }
         foreach (Button button in stateButtonList)
