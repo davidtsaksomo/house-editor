@@ -5,6 +5,19 @@ public class GameManager : MonoBehaviour
 {
     void Update()
     {
+        if (GameStateManager.instance.gameState == GameState.editingFurniture)
+        {
+            if (!FurnitureEditor.instance.SelectedFurnitureInstanceActive)
+            {
+                FurnitureEditor.instance.SelectedFurnitureInstanceActive = true;
+            }
+            FurnitureEditor.instance.ShowFurnitureOnCursor(Input.mousePosition);
+        }
+        else if (FurnitureEditor.instance.SelectedFurnitureInstanceActive)
+        {
+            FurnitureEditor.instance.SelectedFurnitureInstanceActive = false;
+        }
+
         // Mouse is on top of a GUI element
         if (EventSystem.current.IsPointerOverGameObject())
         {

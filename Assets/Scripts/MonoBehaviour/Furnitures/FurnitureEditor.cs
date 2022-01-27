@@ -12,6 +12,13 @@ public class FurnitureEditor : MonoBehaviour
     Collider selectedFurnitureCollider;
 
     float furnitureRotateMultiplier = 5f;
+    Quaternion currentInstanceRotation = Quaternion.identity;
+
+    public bool SelectedFurnitureInstanceActive
+    {
+        get => selectedFurnitureInstance.activeSelf;
+        set => selectedFurnitureInstance.SetActive(value);
+    }
 
     private void Awake()
     {
@@ -23,25 +30,8 @@ public class FurnitureEditor : MonoBehaviour
 
     private void Start()
     {
-        selectedFurnitureInstance = Instantiate(FurnitureList.instance.furnitures[selectedFurnitureIndex]);
-        selectedFurnitureCollider = selectedFurnitureInstance.GetComponent<Collider>();
+        CreateFurnitureInstance();
         selectedFurnitureInstance.SetActive(false);
-    }
-
-    private void Update()
-    {
-        if (GameStateManager.instance.gameState == GameState.editingFurniture)
-        {
-            if (!selectedFurnitureInstance.activeSelf)
-            {
-                selectedFurnitureInstance.SetActive(true);
-            }
-            ShowFurnitureOnCursor(Input.mousePosition);
-        }
-        else if (selectedFurnitureInstance.activeSelf)
-        {
-            selectedFurnitureInstance.SetActive(false);
-        }
     }
 
     public void ShowFurnitureOnCursor(Vector3 mousePosition)
@@ -53,19 +43,30 @@ public class FurnitureEditor : MonoBehaviour
 
     public void PlaceFurniture(Vector3 mousePosition)
     {
-        Instantiate(FurnitureList.instance.furnitures[selectedFurnitureIndex], selectedFurnitureInstance.transform.position, selectedFurnitureInstance.transform.rotation);
+        if (selectedFurnitureInstance.GetComponent<FurniturePrefab>().placeable)
+        {
+            Instantiate(FurnitureList.instance.furnitures[selectedFurnitureIndex], selectedFurnitureInstance.transform.position, selectedFurnitureInstance.transform.rotation);
+        }
     }
 
     public void RotateFurniture(float deltaY)
     {
         selectedFurnitureInstance.transform.Rotate(new Vector3(0f, deltaY * furnitureRotateMultiplier, 0f));
+        currentInstanceRotation = selectedFurnitureInstance.transform.rotation;
     }
 
     public void CycleFurniture()
     {
         selectedFurnitureIndex = (selectedFurnitureIndex + 1) % FurnitureList.instance.furnitures.Length;
         Destroy(selectedFurnitureInstance);
+        CreateFurnitureInstance();
+    }
+
+   void CreateFurnitureInstance()
+    {
         selectedFurnitureInstance = Instantiate(FurnitureList.instance.furnitures[selectedFurnitureIndex]);
+        selectedFurnitureInstance.AddComponent(typeof(FurniturePrefab));
+        selectedFurnitureInstance.transform.rotation = currentInstanceRotation;
         selectedFurnitureCollider = selectedFurnitureInstance.GetComponent<Collider>();
     }
 }
