@@ -9,7 +9,7 @@ public class FurniturePrefab : MonoBehaviour
 
     MeshRenderer meshRenderer;
 
-    float invokeTime = 0.2f;
+    float invokeTime = 0.1f;
 
     private void Start()
     {

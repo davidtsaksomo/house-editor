@@ -5,11 +5,11 @@ public class GameManager : MonoBehaviour
 {
     void Update()
     {
-        if (GameStateManager.instance.gameState == GameState.editingFurniture)
+        if (GameStateManager.instance.gameState == GameState.editingFurniture && !Input.GetButton("Fire3"))
         {
             if (!FurnitureEditor.instance.SelectedFurnitureInstanceActive)
             {
-                FurnitureEditor.instance.SelectedFurnitureInstanceActive = true;
+                FurnitureEditor.instance.ReloadFurnitureInstance();
             }
             FurnitureEditor.instance.ShowFurnitureOnCursor(Input.mousePosition);
         }
@@ -48,15 +48,19 @@ public class GameManager : MonoBehaviour
         }
         else if (GameStateManager.instance.gameState == GameState.editingFurniture)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && !Input.GetButton("Fire3"))
             {
                 FurnitureEditor.instance.PlaceFurniture(Input.mousePosition);
+            }
+            else if (Input.GetButton("Fire3") && Input.GetMouseButtonDown(1))
+            {
+                FurnitureEditor.instance.DeleteFurniture(Input.mousePosition);
             }
             else if (Input.GetMouseButtonDown(1))
             {
                 FurnitureEditor.instance.CycleFurniture();
             }
-            else
+            else if ((int)Input.mouseScrollDelta.y != 0)
             {
                 FurnitureEditor.instance.RotateFurniture(Input.mouseScrollDelta.y);
             }

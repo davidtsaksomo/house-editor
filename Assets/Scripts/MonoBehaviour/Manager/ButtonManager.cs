@@ -56,7 +56,7 @@ public class ButtonManager : MonoBehaviour
                 break;
             case GameState.editingFurniture:
                 selectedButton = editFurnitureButton;
-                InformationTextController.instance.setText("Left click to place furniture. Right click change furniture. Scroll wheel to rotate furniture.");
+                InformationTextController.instance.setText("Left click to place furniture. Right click to change furniture. Scroll wheel to rotate furniture. Shift + Right click to delete furniture.");
                 break;
             case GameState.changingColor:
                 selectedButton = changeColorButton;

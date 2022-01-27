@@ -49,6 +49,16 @@ public class FurnitureEditor : MonoBehaviour
         }
     }
 
+    public void DeleteFurniture(Vector3 mousePosition)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hitData, 1000, 1 << LayerMask.NameToLayer("Furniture")))
+        {
+            Destroy(hitData.collider.gameObject);
+        }
+    }
+
     public void RotateFurniture(float deltaY)
     {
         selectedFurnitureInstance.transform.Rotate(new Vector3(0f, deltaY * furnitureRotateMultiplier, 0f));
@@ -58,8 +68,7 @@ public class FurnitureEditor : MonoBehaviour
     public void CycleFurniture()
     {
         selectedFurnitureIndex = (selectedFurnitureIndex + 1) % FurnitureList.instance.furnitures.Length;
-        Destroy(selectedFurnitureInstance);
-        CreateFurnitureInstance();
+        ReloadFurnitureInstance();
     }
 
    void CreateFurnitureInstance()
@@ -68,5 +77,11 @@ public class FurnitureEditor : MonoBehaviour
         selectedFurnitureInstance.AddComponent(typeof(FurniturePrefab));
         selectedFurnitureInstance.transform.rotation = currentInstanceRotation;
         selectedFurnitureCollider = selectedFurnitureInstance.GetComponent<Collider>();
+    }
+
+    public void ReloadFurnitureInstance()
+    {
+        Destroy(selectedFurnitureInstance);
+        CreateFurnitureInstance();
     }
 }
