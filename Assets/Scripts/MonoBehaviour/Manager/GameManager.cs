@@ -68,5 +68,16 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+        else if (GameStateManager.instance.gameState == GameState.changingColor)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                ColorChanger.instance.ChangeObjectColor(Input.mousePosition);
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                ColorChanger.instance.ChangeColorSelection();
+            }
+        }
     }
 }

@@ -14,6 +14,9 @@ public class FurnitureEditor : MonoBehaviour
     float furnitureRotateMultiplier = 5f;
     Quaternion currentInstanceRotation = Quaternion.identity;
 
+    [SerializeField]
+    Transform furnitureParent = null;
+
     public bool SelectedFurnitureInstanceActive
     {
         get => selectedFurnitureInstance.activeSelf;
@@ -45,7 +48,7 @@ public class FurnitureEditor : MonoBehaviour
     {
         if (selectedFurnitureInstance.GetComponent<FurniturePrefab>().placeable)
         {
-            Instantiate(FurnitureList.instance.furnitures[selectedFurnitureIndex], selectedFurnitureInstance.transform.position, selectedFurnitureInstance.transform.rotation);
+            Instantiate(FurnitureList.instance.furnitures[selectedFurnitureIndex], selectedFurnitureInstance.transform.position, selectedFurnitureInstance.transform.rotation, furnitureParent);
         }
     }
 

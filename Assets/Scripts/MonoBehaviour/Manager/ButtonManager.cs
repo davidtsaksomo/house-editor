@@ -60,9 +60,19 @@ public class ButtonManager : MonoBehaviour
                 break;
             case GameState.changingColor:
                 selectedButton = changeColorButton;
-                InformationTextController.instance.setText("Coming soon.");
+                InformationTextController.instance.setText("Left click on wall or furniture to change its color. Right click to change color selection");
                 break;
         }
+
+        if (gameState == GameState.changingColor)
+        {
+            ColorSelectionIndicator.instance.Show();
+        }
+        else
+        {
+            ColorSelectionIndicator.instance.Hide();
+        }
+
         foreach (Button button in stateButtonList)
         {
             if (button == selectedButton)
