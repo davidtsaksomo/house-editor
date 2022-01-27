@@ -787,6 +787,7 @@ GameObject:
   - component: {fileID: 1865607616}
   - component: {fileID: 1865607618}
   - component: {fileID: 1865607617}
+  - component: {fileID: 1865607620}
   - component: {fileID: 1865607619}
   m_Layer: 0
   m_Name: Game Manager
@@ -848,6 +849,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   terrain: {fileID: 441770845}
+--- !u!114 &1865607620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865607615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c86a411c60ab6b142a63eda08cd9f4f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorPrefab: {fileID: 8952069999256216555, guid: 9092cff7224d4b140919594299da6773, type: 3}
 --- !u!1 &2046564093
 GameObject:
   m_ObjectHideFlags: 0

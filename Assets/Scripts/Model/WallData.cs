@@ -15,18 +15,22 @@ public class WallData
                 if (x == 0 && z == 0)
                 {
                     walls[x, z].wallUnit = new BottomLeftMostWallUnit();
+                    walls[x, z].wallPropUnit = new BottomLeftMostWallPropUnit();
                 } 
                 else if (x == 0)
                 {
                     walls[x, z].wallUnit = new LeftMostWallUnit();
+                    walls[x, z].wallPropUnit = new BottomLeftMostWallPropUnit();
                 }
                 else if (z == 0)
                 {
                     walls[x, z].wallUnit = new BottomMostWallUnit();
+                    walls[x, z].wallPropUnit = new BottomLeftMostWallPropUnit();
                 }
                 else
                 {
                     walls[x, z].wallUnit = new WallUnit();
+                    walls[x, z].wallPropUnit = new BottomLeftMostWallPropUnit();
                 }
             }
         }
