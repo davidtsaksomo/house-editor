@@ -14,7 +14,7 @@ public class WallEditor : MonoBehaviour
 
     WallData wallData;
 
-    float clickMaxDistance = 0.1f;
+    float clickMaxDistance = 0.05f;
 
     private void Awake()
     {

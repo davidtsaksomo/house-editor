@@ -54,17 +54,26 @@ public class ObjectPooler : MonoBehaviour
 
         if (objectPools[objectName].Count == 0)
         {
-            return Instantiate(poolsDictionary[objectName].prefab, position, rotation, parent);
+            GameObject instantiantedObject = Instantiate(poolsDictionary[objectName].prefab, position, rotation);
+            if (parent)
+            {
+                instantiantedObject.transform.transform.SetParent(parent, true);
+            }
+            return instantiantedObject;
         }
+
         GameObject objectToSpawn = objectPools[objectName].Dequeue();
 
-        if (parent != null)
-        {
-            objectToSpawn.transform.parent = parent;
-        }
         objectToSpawn.SetActive(true);
         objectToSpawn.transform.position = position;
         objectToSpawn.transform.rotation = rotation;
+
+        if (parent)
+        {
+            Vector3 scale = objectToSpawn.transform.localScale;
+            objectToSpawn.transform.SetParent(parent, true);
+            objectToSpawn.transform.localScale = scale;
+        }
 
         return objectToSpawn;
     }

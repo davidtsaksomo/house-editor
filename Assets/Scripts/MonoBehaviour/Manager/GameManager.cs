@@ -1,22 +1,17 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
     void Update()
     {
-        if (Input.GetButton("Fire3"))
+        // Mouse is on top of a GUI element
+        if (EventSystem.current.IsPointerOverGameObject())
         {
-            if (Input.GetMouseButton(0))
-            {
-                DoorEditor.instance.AddDoor(Input.mousePosition);
-            }
-            else if (Input.GetMouseButton(1))
-            {
-                DoorEditor.instance.AddDoor(Input.mousePosition, true);
-            }
             return;
         }
-        if (Input.GetButton("Fire1"))
+
+        if (GameStateManager.instance.gameState == GameState.editingWall)
         {
             if (Input.GetMouseButton(0))
             {
@@ -26,15 +21,25 @@ public class GameManager : MonoBehaviour
             {
                 WallEditor.instance.RemoveWall(Input.mousePosition);
             }
-            return;
         }
-        if (Input.GetMouseButtonDown(0))
+        else if (GameStateManager.instance.gameState == GameState.editingWallProp)
         {
-            FurnitureEditor.instance.PlaceFurniture();
+            if (Input.GetMouseButton(0))
+            {
+                DoorEditor.instance.AddDoor(Input.mousePosition);
+            }
+            else if (Input.GetMouseButton(1))
+            {
+                DoorEditor.instance.AddDoor(Input.mousePosition, true);
+            }
         }
-        else if (Input.GetMouseButton(1))
+        else if (GameStateManager.instance.gameState == GameState.addingFurniture)
         {
-           
+            FurnitureEditor.instance.ShowFurnitureOnCursor(Input.mousePosition);
+            if (Input.GetMouseButtonDown(0))
+            {
+                FurnitureEditor.instance.PlaceFurniture();
+            }
         }
     }
 }

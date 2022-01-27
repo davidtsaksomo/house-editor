@@ -24,9 +24,9 @@ public class FurnitureEditor : MonoBehaviour
         selectedFurnitureInstance = Instantiate(selectedFurniture);
     }
 
-    void Update()
+    public void ShowFurnitureOnCursor(Vector3 mousePosition)
     {
-        Vector3 mouseTerrainPosition = MouseToWorldPoint.mouseToTerrainPosition(Input.mousePosition);
+        Vector3 mouseTerrainPosition = MouseToWorldPoint.mouseToTerrainPosition(mousePosition);
         Vector3 furniturePosition = new Vector3(mouseTerrainPosition.x, selectedFurnitureInstance.GetComponent<Collider>().bounds.size.y / 2, mouseTerrainPosition.z);
         selectedFurnitureInstance.transform.position = furniturePosition;
     }

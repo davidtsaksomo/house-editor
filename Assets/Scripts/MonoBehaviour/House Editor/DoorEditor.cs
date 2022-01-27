@@ -115,9 +115,7 @@ public class DoorEditor : MonoBehaviour
                         break;
                 }
 
-                GameObject door = ObjectPooler.instance.SpawnFromPool("Door", wallTransform.position, wallTransform.rotation, wallTransform);
-                // Adjust local scale
-                door.transform.localScale = new Vector3(door.transform.localScale.x / wallTransform.localScale.x, door.transform.localScale.y / wallTransform.localScale.y, door.transform.localScale.z / wallTransform.localScale.z);
+                ObjectPooler.instance.SpawnFromPool("Door", wallTransform.position, wallTransform.rotation, wallTransform);
             }
             else
             {
