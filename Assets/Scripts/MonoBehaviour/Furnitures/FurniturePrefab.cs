@@ -18,17 +18,25 @@ public class FurniturePrefab : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        if ((collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Furniture")) && placeable)
+        if ((collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Furniture")))
         {
-            SetNotPlaceable();
+            CancelInvoke();
+            if(placeable)
+            {
+                SetNotPlaceable();
+            }
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if ((collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Furniture")) && placeable)
+        if ((collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Furniture")))
         {
-            SetNotPlaceable();
+            CancelInvoke();
+            if (placeable)
+            {
+                SetNotPlaceable();
+            }
         }
     }
 
@@ -44,7 +52,6 @@ public class FurniturePrefab : MonoBehaviour
     {
         placeable = false;
         meshRenderer.material.color = new Color(meshRenderer.material.color.r, meshRenderer.material.color.g, meshRenderer.material.color.b, 0.3f);
-        CancelInvoke();
     }
 
     void SetPlaceable()

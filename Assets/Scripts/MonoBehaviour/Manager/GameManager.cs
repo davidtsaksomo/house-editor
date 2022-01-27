@@ -48,21 +48,24 @@ public class GameManager : MonoBehaviour
         }
         else if (GameStateManager.instance.gameState == GameState.editingFurniture)
         {
-            if (Input.GetMouseButtonDown(0) && !Input.GetButton("Fire3"))
-            {
-                FurnitureEditor.instance.PlaceFurniture(Input.mousePosition);
-            }
-            else if (Input.GetButton("Fire3") && Input.GetMouseButtonDown(1))
+            if (Input.GetButton("Fire3") && Input.GetMouseButtonDown(1))
             {
                 FurnitureEditor.instance.DeleteFurniture(Input.mousePosition);
             }
-            else if (Input.GetMouseButtonDown(1))
+            else if (!Input.GetButton("Fire3"))
             {
-                FurnitureEditor.instance.CycleFurniture();
-            }
-            else if ((int)Input.mouseScrollDelta.y != 0)
-            {
-                FurnitureEditor.instance.RotateFurniture(Input.mouseScrollDelta.y);
+                if (Input.GetMouseButtonDown(0))
+                {
+                    FurnitureEditor.instance.PlaceFurniture(Input.mousePosition);
+                }
+                else if (Input.GetMouseButtonDown(1))
+                {
+                    FurnitureEditor.instance.CycleFurniture();
+                }
+                else if ((int)Input.mouseScrollDelta.y != 0)
+                {
+                    FurnitureEditor.instance.RotateFurniture(Input.mouseScrollDelta.y);
+                }
             }
         }
     }
