@@ -128,10 +128,12 @@ public class WallEditor : MonoBehaviour
                 {
                     z -= 1;
                     wallData.walls[x, z].wallUnit.Top = false;
+                    wallData.walls[x, z].wallPropUnit.Top = null;
                 }
                 else
                 {
                     wallData.walls[x, z].wallUnit.Bottom = false;
+                    wallData.walls[x, z].wallPropUnit.Bottom = null;
                 }
             }
             else
@@ -142,10 +144,12 @@ public class WallEditor : MonoBehaviour
                 {
                     x -= 1;
                     wallData.walls[x, z].wallUnit.Right = false;
+                    wallData.walls[x, z].wallPropUnit.Right = null;
                 }
                 else
                 {
                     wallData.walls[x, z].wallUnit.Left = false;
+                    wallData.walls[x, z].wallPropUnit.Left = null;
                 }
             }
             Destroy(removedWall);
