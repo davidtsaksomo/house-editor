@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
             }
             else if (Input.GetMouseButton(1))
             {
-                WallEditor.wallEditor.RemoveWall(Input.mousePosition);
+                DoorEditor.doorEditor.AddDoor(Input.mousePosition, true);
             }
             return;
         }
