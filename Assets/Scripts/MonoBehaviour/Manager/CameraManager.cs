@@ -50,29 +50,29 @@ public class CameraManager : MonoBehaviour
         switch (direction)
         {
             case 0:
-                transform.position = new Vector3(Mathf.Clamp(transform.position.x + (cameraSpeed * Time.deltaTime), 5f, GameConstants.worldWidth - cameraOffset), transform.position.y, transform.position.z);
+                transform.position = new Vector3(Mathf.Clamp(transform.position.x + (cameraSpeed * Time.deltaTime), cameraOffset, GameConstants.worldWidth - cameraOffset), transform.position.y, transform.position.z);
                 break;
             case 1:
-                transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Clamp(transform.position.z - (cameraSpeed * Time.deltaTime), cameraOffset, GameConstants.worldLength - 5f));
+                transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Clamp(transform.position.z - (cameraSpeed * Time.deltaTime), cameraOffset, GameConstants.worldLength - cameraOffset));
                 break;
             case 2:
-                transform.position = new Vector3(Mathf.Clamp(transform.position.x - (cameraSpeed * Time.deltaTime), 5f, GameConstants.worldWidth - cameraOffset), transform.position.y, transform.position.z);
+                transform.position = new Vector3(Mathf.Clamp(transform.position.x - (cameraSpeed * Time.deltaTime), cameraOffset, GameConstants.worldWidth - cameraOffset), transform.position.y, transform.position.z);
                 break;
             case 3:
-                transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Clamp(transform.position.z + (cameraSpeed * Time.deltaTime), cameraOffset, GameConstants.worldLength - 5f));
+                transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Clamp(transform.position.z + (cameraSpeed * Time.deltaTime), cameraOffset, GameConstants.worldLength - cameraOffset));
                 break;
         }
     }
 
     public void RotateRight()
     {
-        currentCameraRotation = (currentCameraRotation + 1) % 4;
+        currentCameraRotation = MathMod((currentCameraRotation + 1), 4);
         rotationTimeCounter = 0f;
     }
 
     public void RotateLeft()
     {
-        currentCameraRotation = (currentCameraRotation - 1) % 4;
+        currentCameraRotation = MathMod((currentCameraRotation - 1), 4);
         rotationTimeCounter = 0f;
     }
 
@@ -84,5 +84,10 @@ public class CameraManager : MonoBehaviour
             rotationTimeCounter += Time.fixedDeltaTime / rotationSpeed;
         }
 
+    }
+
+    int MathMod(int a, int b)
+    {
+        return (Mathf.Abs(a * b) + a) % b;
     }
 }
