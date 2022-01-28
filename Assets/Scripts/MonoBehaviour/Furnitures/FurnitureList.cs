@@ -35,6 +35,14 @@ public class FurnitureList : MonoBehaviour
         return furnitures[index].gameObject;
     }
 
+    public GameObject GetFurniturePrefabByFurnitureId(int furnitureId)
+    {
+        if (furnituresDictionary.ContainsKey(furnitureId)) {
+            return furnituresDictionary[furnitureId];
+        }
+        return null;
+    }
+
     public int FurnitureCount
     {
         get => furnitures.Length;

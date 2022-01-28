@@ -59,12 +59,8 @@ public class FurnitureEditor : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hitData, 1000, 1 << LayerMask.NameToLayer(GameConstants.furnitureName)))
         {
+            GameDataManager.instance.gameData.placedFurniturelist.placedFurnitures.Remove(hitData.collider.gameObject.GetInstanceID());
             Destroy(hitData.collider.gameObject);
-            FurnitureId furnitureId = hitData.collider.GetComponent<FurnitureId>();
-            if (furnitureId)
-            {
-                GameDataManager.instance.gameData.placedFurniturelist.placedFurnitures.Remove(furnitureId.id);
-            }
         }
     }
 
@@ -80,7 +76,7 @@ public class FurnitureEditor : MonoBehaviour
         ReloadFurnitureInstance();
     }
 
-   void CreateFurnitureInstance()
+    void CreateFurnitureInstance()
     {
         selectedFurnitureInstance = Instantiate(FurnitureList.instance.GetFurniturePrefabByIndex(selectedFurnitureIndex));
         selectedFurnitureInstance.AddComponent(typeof(FurnitureCursorInstance));
@@ -97,6 +93,23 @@ public class FurnitureEditor : MonoBehaviour
     public void SpawnFurnitureFromData()
     {
         DestroyAll();
+        Dictionary<int, PlacedFurniture> dictionaryCopy = new Dictionary<int, PlacedFurniture>(GameDataManager.instance.gameData.placedFurniturelist.placedFurnitures);
+        foreach (KeyValuePair<int, PlacedFurniture> furnitureKeyValuePair in dictionaryCopy)
+        {
+            PlacedFurniture furnitureData = furnitureKeyValuePair.Value;
+            GameObject furniturePrefab = FurnitureList.instance.GetFurniturePrefabByFurnitureId(furnitureData.furnitureId);
+            if (furniturePrefab)
+            {
+                GameObject furniture = Instantiate(furniturePrefab, new Vector3(furnitureData.position[0], furnitureData.position[1], furnitureData.position[2]), Quaternion.Euler(new Vector3(0f, furnitureData.yrotation, 0f)), furnitureParent);
+                GameDataManager.instance.gameData.placedFurniturelist.placedFurnitures.Add(furniture.GetInstanceID(), furnitureData);
+                GameDataManager.instance.gameData.placedFurniturelist.placedFurnitures.Remove(furnitureKeyValuePair.Key);
+                MeshRenderer meshRenderer = furniture.GetComponent<MeshRenderer>();
+                if (meshRenderer)
+                {
+                    meshRenderer.material.color = new Color(furnitureData.color[0], furnitureData.color[1], furnitureData.color[2]);
+                }
+            }
+        }
     }
 
     void DestroyAll()
