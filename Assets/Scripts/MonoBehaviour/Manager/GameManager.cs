@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
 {
     void Update()
     {
-        if (GameStateManager.instance.gameState == GameState.editingFurniture && !Input.GetButton("Fire3"))
+        if (GameStateManager.instance.gameState == GameState.editingFurniture && !Input.GetKey(KeyCode.LeftShift))
         {
             if (!FurnitureEditor.instance.SelectedFurnitureInstanceActive)
             {
@@ -18,67 +18,66 @@ public class GameManager : MonoBehaviour
             FurnitureEditor.instance.SelectedFurnitureInstanceActive = false;
         }
 
-        // Mouse is on top of a GUI element
-        if (EventSystem.current.IsPointerOverGameObject())
+        // Mouse not top of a GUI element
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            return;
-        }
-
-        if (GameStateManager.instance.gameState == GameState.editingWall)
-        {
-            if (Input.GetMouseButton(0))
+            if (GameStateManager.instance.gameState == GameState.editingWall)
             {
-                WallEditor.instance.AddWall(Input.mousePosition);
-            }
-            else if (Input.GetMouseButton(1))
-            {
-                WallEditor.instance.RemoveWall(Input.mousePosition);
-            }
-        }
-        else if (GameStateManager.instance.gameState == GameState.editingWallProp)
-        {
-            if (Input.GetMouseButton(0))
-            {
-                DoorEditor.instance.EditDoor(Input.mousePosition);
-            }
-            else if (Input.GetMouseButton(1))
-            {
-                DoorEditor.instance.EditDoor(Input.mousePosition, true);
-            }
-        }
-        else if (GameStateManager.instance.gameState == GameState.editingFurniture)
-        {
-            if (Input.GetKey(KeyCode.LeftShift) && Input.GetMouseButtonDown(1))
-            {
-                FurnitureEditor.instance.DeleteFurniture(Input.mousePosition);
-            }
-            else if (!Input.GetKey(KeyCode.LeftShift))
-            {
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButton(0))
                 {
-                    FurnitureEditor.instance.PlaceFurniture(Input.mousePosition);
+                    WallEditor.instance.AddWall(Input.mousePosition);
+                }
+                else if (Input.GetMouseButton(1))
+                {
+                    WallEditor.instance.RemoveWall(Input.mousePosition);
+                }
+            }
+            else if (GameStateManager.instance.gameState == GameState.editingWallProp)
+            {
+                if (Input.GetMouseButton(0))
+                {
+                    DoorEditor.instance.EditDoor(Input.mousePosition);
+                }
+                else if (Input.GetMouseButton(1))
+                {
+                    DoorEditor.instance.EditDoor(Input.mousePosition, true);
+                }
+            }
+            else if (GameStateManager.instance.gameState == GameState.editingFurniture)
+            {
+                if (Input.GetKey(KeyCode.LeftShift) && Input.GetMouseButtonDown(1))
+                {
+                    FurnitureEditor.instance.DeleteFurniture(Input.mousePosition);
+                }
+                else if (!Input.GetKey(KeyCode.LeftShift))
+                {
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        FurnitureEditor.instance.PlaceFurniture(Input.mousePosition);
+                    }
+                    else if (Input.GetMouseButtonDown(1))
+                    {
+                        FurnitureEditor.instance.CycleFurniture();
+                    }
+                    else if ((int)Input.mouseScrollDelta.y != 0)
+                    {
+                        FurnitureEditor.instance.RotateFurniture(Input.mouseScrollDelta.y);
+                    }
+                }
+            }
+            else if (GameStateManager.instance.gameState == GameState.changingColor)
+            {
+                if (Input.GetMouseButton(0))
+                {
+                    ColorChanger.instance.ChangeObjectColor(Input.mousePosition);
                 }
                 else if (Input.GetMouseButtonDown(1))
                 {
-                    FurnitureEditor.instance.CycleFurniture();
-                }
-                else if ((int)Input.mouseScrollDelta.y != 0)
-                {
-                    FurnitureEditor.instance.RotateFurniture(Input.mouseScrollDelta.y);
+                    ColorChanger.instance.ChangeColorSelection();
                 }
             }
         }
-        else if (GameStateManager.instance.gameState == GameState.changingColor)
-        {
-            if (Input.GetMouseButton(0))
-            {
-                ColorChanger.instance.ChangeObjectColor(Input.mousePosition);
-            }
-            else if (Input.GetMouseButtonDown(1))
-            {
-                ColorChanger.instance.ChangeColorSelection();
-            }
-        }
+
 
         if (Input.GetKey(KeyCode.W))
         {
