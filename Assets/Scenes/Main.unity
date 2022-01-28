@@ -153,11 +153,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   furnitures:
-  - {fileID: 6263267186144521563, guid: f78ebb2c908370a498736c897ac86e36, type: 3}
-  - {fileID: 7601609561513734961, guid: ffb2ef02759a67d4f9e0d20d044f0e48, type: 3}
-  - {fileID: 3426739166475002913, guid: 5df9a820a997dbf438d2ae15a1a161f9, type: 3}
-  - {fileID: 8994411939394088116, guid: 0c99c29f5e029e64a98b78183c1cb82e, type: 3}
-  - {fileID: 6722400638059043022, guid: d3182f96cd355194bb5ea76de3903334, type: 3}
+  - {fileID: 2499323796852652270, guid: f78ebb2c908370a498736c897ac86e36, type: 3}
+  - {fileID: 6712621911791689235, guid: ffb2ef02759a67d4f9e0d20d044f0e48, type: 3}
+  - {fileID: 4056039030097659422, guid: 5df9a820a997dbf438d2ae15a1a161f9, type: 3}
+  - {fileID: -7694541665149664716, guid: 0c99c29f5e029e64a98b78183c1cb82e, type: 3}
+  - {fileID: 8116426318610272478, guid: d3182f96cd355194bb5ea76de3903334, type: 3}
 --- !u!4 &48668951
 Transform:
   m_ObjectHideFlags: 0
@@ -3069,8 +3069,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a38ce9c2a520c41900cb4586abac40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallParent: {fileID: 1104873804}
-  furnitureParent: {fileID: 1123153143}
+  gameData: {}
 --- !u!1 &2046564093
 GameObject:
   m_ObjectHideFlags: 0

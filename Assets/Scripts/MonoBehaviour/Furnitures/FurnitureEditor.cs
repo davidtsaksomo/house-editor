@@ -49,7 +49,7 @@ public class FurnitureEditor : MonoBehaviour
         if (selectedFurnitureInstance.GetComponent<FurnitureCursorInstance>().placeable)
         {
             GameObject placedFurniture = Instantiate(FurnitureList.instance.GetFurniturePrefabByIndex(selectedFurnitureIndex), selectedFurnitureInstance.transform.position, selectedFurnitureInstance.transform.rotation, furnitureParent);
-            GameDataManager.instance.gameData.placedFurniturelist.placedFurnitures.Add(placedFurniture.GetInstanceID(), new PlacedFurniture(placedFurniture.GetComponent<FurnitureId>().id, placedFurniture.transform, Color.white));
+            GameDataManager.instance.gameData.placedFurniturelist.placedFurnitures.Add(placedFurniture.GetInstanceID(), new PlacedFurniture(placedFurniture.GetComponent<FurnitureId>().id, placedFurniture.transform, GameConstants.DefaultFurnitureColor));
         }
     }
 

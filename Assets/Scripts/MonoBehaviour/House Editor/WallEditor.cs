@@ -12,9 +12,12 @@ public class WallEditor : MonoBehaviour
     [SerializeField]
     GameObject wallParent = null;
 
-    WallData wallData;
-
     float clickMaxDistance = 0.05f;
+
+    WallData WallData
+    {
+        get => GameDataManager.instance.gameData.wallData;
+    }
 
     private void Awake()
     {
@@ -22,11 +25,6 @@ public class WallEditor : MonoBehaviour
         {
             instance = this;
         }
-    }
-
-    private void Start()
-    {
-        wallData = GameDataManager.instance.gameData.wallData;
     }
 
     public void AddWall(Vector3 mousePosition)
@@ -50,18 +48,18 @@ public class WallEditor : MonoBehaviour
             {
                 if (gridPosition.x >= 1)
                 {
-                    if (!wallData.wallUnits[(int)gridPosition.x - 1, (int)gridPosition.z].Right.exist)
+                    if (!WallData.wallUnits[(int)gridPosition.x - 1, (int)gridPosition.z].Right.exist)
                     {
-                        wallData.wallUnits[(int)gridPosition.x - 1, (int)gridPosition.z].Right.exist = true;
+                        WallData.wallUnits[(int)gridPosition.x - 1, (int)gridPosition.z].Right.exist = true;
                         ObjectPooler.instance.SpawnFromPool(GameConstants.wallName, instancePosition, Quaternion.Euler(new Vector3(0, 90, 0)), wallParent.transform);
                     }
 
                 }
                 else
                 {
-                    if (!wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Left.exist)
+                    if (!WallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Left.exist)
                     {
-                        wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Left.exist = true;
+                        WallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Left.exist = true;
                         ObjectPooler.instance.SpawnFromPool(GameConstants.wallName, instancePosition, Quaternion.Euler(new Vector3(0, 90, 0)), wallParent.transform);
                     }
                 }
@@ -69,9 +67,9 @@ public class WallEditor : MonoBehaviour
             }
             else // wall on the right
             {
-                if (!wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Right.exist)
+                if (!WallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Right.exist)
                 {
-                    wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Right.exist = true;
+                    WallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Right.exist = true;
                     ObjectPooler.instance.SpawnFromPool(GameConstants.wallName, instancePosition, Quaternion.Euler(new Vector3(0, 90, 0)), wallParent.transform);
                 }
             }
@@ -86,26 +84,26 @@ public class WallEditor : MonoBehaviour
             {
                 if (gridPosition.z >= 1)
                 {
-                    if (!wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z - 1].Top.exist)
+                    if (!WallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z - 1].Top.exist)
                     {
-                        wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z - 1].Top.exist = true;
+                        WallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z - 1].Top.exist = true;
                         ObjectPooler.instance.SpawnFromPool(GameConstants.wallName, instancePosition, Quaternion.identity, wallParent.transform);
                     }
                 }
                 else
                 {
-                    if (!wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Bottom.exist)
+                    if (!WallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Bottom.exist)
                     {
-                        wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Bottom.exist = true;
+                        WallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Bottom.exist = true;
                         ObjectPooler.instance.SpawnFromPool(GameConstants.wallName, instancePosition, Quaternion.identity, wallParent.transform);
                     }
                 }
             }
             else // wall on the top
             {
-                if (!wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Top.exist)
+                if (!WallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Top.exist)
                 {
-                    wallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Top.exist = true;
+                    WallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Top.exist = true;
                     ObjectPooler.instance.SpawnFromPool(GameConstants.wallName, instancePosition, Quaternion.identity, wallParent.transform);
                 }
             }
@@ -128,13 +126,13 @@ public class WallEditor : MonoBehaviour
                 if (z >= 1)
                 {
                     z -= 1;
-                    wallData.wallUnits[x, z].Top.exist = false;
-                    wallData.wallUnits[x, z].Top.wallProp = null;
+                    WallData.wallUnits[x, z].Top.exist = false;
+                    WallData.wallUnits[x, z].Top.wallProp = null;
                 }
                 else
                 {
-                    wallData.wallUnits[x, z].Bottom.exist = false;
-                    wallData.wallUnits[x, z].Bottom.wallProp = null;
+                    WallData.wallUnits[x, z].Bottom.exist = false;
+                    WallData.wallUnits[x, z].Bottom.wallProp = null;
                 }
             }
             else
@@ -144,16 +142,17 @@ public class WallEditor : MonoBehaviour
                 if (x >= 1)
                 {
                     x -= 1;
-                    wallData.wallUnits[x, z].Right.exist = false;
-                    wallData.wallUnits[x, z].Right.wallProp = null;
+                    WallData.wallUnits[x, z].Right.exist = false;
+                    WallData.wallUnits[x, z].Right.wallProp = null;
                 }
                 else
                 {
-                    wallData.wallUnits[x, z].Left.exist = false;
-                    wallData.wallUnits[x, z].Left.wallProp = null;
+                    WallData.wallUnits[x, z].Left.exist = false;
+                    WallData.wallUnits[x, z].Left.wallProp = null;
                 }
             }
-            ObjectPooler.instance.DespawnToPool(GameConstants.wallName, removedWall);
+
+            DespawnWallToPool(removedWall);
         }
     }
 
@@ -211,9 +210,25 @@ public class WallEditor : MonoBehaviour
 
     private void DestroyAll()
     {
-        foreach (Transform child in wallParent.transform)
+        foreach (Transform wall in wallParent.transform)
         {
-            ObjectPooler.instance.DespawnToPool(GameConstants.wallName, child.gameObject);
+            DespawnWallToPool(wall.gameObject);
         }
+    }
+
+    private void DespawnWallToPool(GameObject wall)
+    {
+            if (wall.activeSelf)
+            {
+                foreach (Transform wallProp in wall.transform)
+                {
+                    if (wallProp.gameObject.activeSelf)
+                    {
+                        Destroy(wallProp.gameObject);
+                    }
+                }
+                wall.GetComponent<MeshRenderer>().material.color = GameConstants.DefaultWallColor;
+                ObjectPooler.instance.DespawnToPool(GameConstants.wallName, wall);
+            }
     }
 }

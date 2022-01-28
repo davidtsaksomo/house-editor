@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class GameConstants
 {
     // Size of the world
@@ -9,4 +11,15 @@ public class GameConstants
 
     public const string wallName = "Wall";
     public const string doorName = "Door";
+
+    public static Color DefaultWallColor
+    {
+        get => Color.white;
+    }
+
+    public static Color DefaultFurnitureColor
+    {
+        get => Color.white;
+    }
+
 }

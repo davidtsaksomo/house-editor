@@ -10,7 +10,7 @@ public class GameDataManager : MonoBehaviour
     public GameData gameData = new GameData();
     
 
-    const string filePath = "/gameData.dat";
+    const string filePath = "/gameData.sav";
 
     private void Awake()
     {
