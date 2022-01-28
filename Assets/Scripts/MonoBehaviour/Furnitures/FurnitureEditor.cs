@@ -17,6 +17,8 @@ public class FurnitureEditor : MonoBehaviour
     [SerializeField]
     Transform furnitureParent = null;
 
+    bool cursorPositionValid = false;
+
     public bool SelectedFurnitureInstanceActive
     {
         get => selectedFurnitureInstance.activeSelf;
@@ -41,12 +43,17 @@ public class FurnitureEditor : MonoBehaviour
     {
         Vector3 mouseTerrainPosition = MouseToWorldPoint.mouseToTerrainPosition(mousePosition);
         Vector3 furniturePosition = new Vector3(mouseTerrainPosition.x, selectedFurnitureCollider.bounds.size.y / 2, mouseTerrainPosition.z);
-        selectedFurnitureInstance.transform.position = furniturePosition;
+        cursorPositionValid = !float.IsInfinity(furniturePosition.x) && !float.IsInfinity(furniturePosition.z);
+        if (cursorPositionValid)
+        {
+            selectedFurnitureInstance.transform.position = furniturePosition;
+        }
+        
     }
 
     public void PlaceFurniture(Vector3 mousePosition)
     {
-        if (selectedFurnitureInstance.GetComponent<FurnitureCursorInstance>().placeable)
+        if (selectedFurnitureInstance.GetComponent<FurnitureCursorInstance>().placeable && cursorPositionValid)
         {
             GameObject placedFurniture = Instantiate(FurnitureList.instance.GetFurniturePrefabByIndex(selectedFurnitureIndex), selectedFurnitureInstance.transform.position, selectedFurnitureInstance.transform.rotation, furnitureParent);
             GameDataManager.instance.gameData.placedFurniturelist.placedFurnitures.Add(placedFurniture.GetInstanceID(), new PlacedFurniture(placedFurniture.GetComponent<FurnitureId>().id, placedFurniture.transform, GameConstants.DefaultFurnitureColor));

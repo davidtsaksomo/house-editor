@@ -507,7 +507,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 441770845}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.1, y: 0, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -876,7 +876,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &648431326
 Light:
   m_ObjectHideFlags: 0
@@ -1130,7 +1130,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Move Camera: W, S, A, D
+  m_text: 'Move Camera: W, A, S, D
 
     Rotate Camera: Q, E'
   m_isRightToLeft: 0
@@ -2687,7 +2687,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &1637028180
 Light:
   m_ObjectHideFlags: 0
@@ -2779,7 +2779,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &1665630253
 Light:
   m_ObjectHideFlags: 0
@@ -2940,13 +2940,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1691928689}
-  m_LocalRotation: {x: 0.4995705, y: -0, z: -0, w: 0.8662733}
+  m_LocalRotation: {x: 0.47886035, y: 0.2468399, z: 0.14234994, w: 0.83036107}
   m_LocalPosition: {x: 40, y: 20, z: 22.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 619671757}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 59.943, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 46.467, y: 52.476, z: 43.35}
 --- !u!1 &1729688019
 GameObject:
   m_ObjectHideFlags: 0
@@ -3434,7 +3434,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &2102325032
 Light:
   m_ObjectHideFlags: 0

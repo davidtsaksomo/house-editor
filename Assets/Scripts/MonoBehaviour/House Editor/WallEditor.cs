@@ -67,10 +67,21 @@ public class WallEditor : MonoBehaviour
             }
             else // wall on the right
             {
-                if (!WallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Right.exist)
+                if ((int)gridPosition.x < 0)
                 {
-                    WallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Right.exist = true;
-                    ObjectPooler.instance.SpawnFromPool(GameConstants.wallName, instancePosition, Quaternion.Euler(new Vector3(0, 90, 0)), wallParent.transform);
+                    if (!WallData.wallUnits[(int)gridPosition.x + 1, (int)gridPosition.z].Left.exist)
+                    {
+                        WallData.wallUnits[(int)gridPosition.x + 1, (int)gridPosition.z].Left.exist = true;
+                        ObjectPooler.instance.SpawnFromPool(GameConstants.wallName, instancePosition, Quaternion.Euler(new Vector3(0, 90, 0)), wallParent.transform);
+                    }
+                }
+                else
+                {
+                    if (!WallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Right.exist)
+                    {
+                        WallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Right.exist = true;
+                        ObjectPooler.instance.SpawnFromPool(GameConstants.wallName, instancePosition, Quaternion.Euler(new Vector3(0, 90, 0)), wallParent.transform);
+                    }
                 }
             }
 
@@ -101,10 +112,21 @@ public class WallEditor : MonoBehaviour
             }
             else // wall on the top
             {
-                if (!WallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Top.exist)
+                if ((int)gridPosition.z < 0)
                 {
-                    WallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Top.exist = true;
-                    ObjectPooler.instance.SpawnFromPool(GameConstants.wallName, instancePosition, Quaternion.identity, wallParent.transform);
+                    if (!WallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z + 1].Bottom.exist)
+                    {
+                        WallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z + 1].Bottom.exist = true;
+                        ObjectPooler.instance.SpawnFromPool(GameConstants.wallName, instancePosition, Quaternion.identity, wallParent.transform);
+                    }
+                }
+                else
+                {
+                    if (!WallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Top.exist)
+                    {
+                        WallData.wallUnits[(int)gridPosition.x, (int)gridPosition.z].Top.exist = true;
+                        ObjectPooler.instance.SpawnFromPool(GameConstants.wallName, instancePosition, Quaternion.identity, wallParent.transform);
+                    }
                 }
             }
         }

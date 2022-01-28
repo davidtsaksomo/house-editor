@@ -8,6 +8,6 @@ public class TerrainSizeAdjuster : MonoBehaviour
     private void Start()
     {
         TerrainData terrainData = terrain.GetComponent<Terrain>().terrainData;
-        terrainData.size = new Vector3(GameConstants.worldWidth, terrainData.size.y, GameConstants.worldLength);
+        terrainData.size = new Vector3(GameConstants.worldWidth + 0.2f, terrainData.size.y, GameConstants.worldLength + 0.2f);
     }
 }
