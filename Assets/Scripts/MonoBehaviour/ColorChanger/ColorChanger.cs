@@ -2,16 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Class to manage color changing feature
 public class ColorChanger : MonoBehaviour
 {
     // Singleton
     public static ColorChanger instance;
 
+    // Current selected color index
     int selectedColorIndex = 0;
 
+    // List of available color. Set in the inspector.
+    [Tooltip("List all colors here.")]
     [SerializeField]
     Color[] colors = null;
 
+    // Convenience wall data accessor
     WallData WallData
     {
         get => GameDataManager.instance.gameData.wallData;
@@ -34,9 +39,12 @@ public class ColorChanger : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
 
+        // Raycast to get game object
         if (Physics.Raycast(ray, out RaycastHit hitData, 1000, 1 << LayerMask.NameToLayer(GameConstants.furnitureName) | 1 << LayerMask.NameToLayer(GameConstants.wallName)))
         {
             GameObject targetObject = hitData.collider.gameObject;
+
+            // Change color
             MeshRenderer meshRenderer = targetObject.GetComponent<MeshRenderer>();
             if (!meshRenderer) 
             {
@@ -44,6 +52,7 @@ public class ColorChanger : MonoBehaviour
             }
             meshRenderer.material.color = colors[selectedColorIndex];
 
+            // Update color data of the object accordingly
             if (targetObject.CompareTag(GameConstants.wallName))
             {
                 if ((int)Mathf.Round(targetObject.transform.eulerAngles.y) == 0)

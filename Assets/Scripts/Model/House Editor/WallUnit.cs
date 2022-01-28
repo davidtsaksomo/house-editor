@@ -1,4 +1,4 @@
-
+// A wall unit is walls in one cell grid
 public interface IWallUnit
 {
     Wall Top { get; set; }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Class to manage door editing feature
 public class DoorEditor : MonoBehaviour
 {
     // Singleton instance
@@ -30,6 +31,7 @@ public class DoorEditor : MonoBehaviour
 
         string layerMaskName = delete ? GameConstants.doorName : GameConstants.wallName;
 
+        // Use ray to get target object
         if (Physics.Raycast(ray, out RaycastHit hitData, 1000, 1 << LayerMask.NameToLayer(layerMaskName)))
         {
             targetObject = hitData.collider.gameObject;
@@ -38,6 +40,7 @@ public class DoorEditor : MonoBehaviour
             int z;
             DoorPosition position;
 
+            // Find object x and z, and door position
             if ((int)Mathf.Round(wallTransform.eulerAngles.y) == 0)
             {
                 x = (int)Mathf.Floor(wallTransform.position.x);
@@ -67,6 +70,7 @@ public class DoorEditor : MonoBehaviour
                 }
             }
 
+            // Create or delete
             if (!delete)
             {
                 AddDoor(wallTransform, x, z, position);
@@ -80,6 +84,7 @@ public class DoorEditor : MonoBehaviour
 
     void AddDoor(Transform wall, int x, int z, DoorPosition position)
     {
+        // Update door information on wall data
         WallData wallData = GameDataManager.instance.gameData.wallData;
         switch (position)
         {
@@ -124,12 +129,13 @@ public class DoorEditor : MonoBehaviour
                 }
                 break;
         }
-
+        // Spawn door
         ObjectPooler.instance.SpawnFromPool(GameConstants.doorName, wall.position, wall.rotation, wall);
     }
 
     void DeleteDoor(GameObject door, int x, int z, DoorPosition position)
     {
+        // Update door information on wall data
         WallData wallData = GameDataManager.instance.gameData.wallData;
         switch (position)
         {
@@ -146,6 +152,7 @@ public class DoorEditor : MonoBehaviour
                 wallData.wallUnits[x, z].Left.wallProp = null;
                 break;
         }
+        // Despawn door
         ObjectPooler.instance.DespawnToPool(GameConstants.doorName, door);
     }
 }

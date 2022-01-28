@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MouseToWorldPoint
 {
+    // Convert mouse position to world position on main main terrain
     public static Vector3 mouseToTerrainPosition(Vector3 mousePosition)
     {
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);

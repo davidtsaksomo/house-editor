@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+// Class to store information of a wall
 [System.Serializable]
 public class Wall
 {

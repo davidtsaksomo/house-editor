@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+// Manage information text object
 public class InformationTextController : MonoBehaviour
 {
     // Singleton

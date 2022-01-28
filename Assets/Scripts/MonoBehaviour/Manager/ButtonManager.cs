@@ -3,18 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Class to manage button functions
 public class ButtonManager : MonoBehaviour
 {
+    [Tooltip("Button to edit wall.")]
     [SerializeField]
     Button editWallButton = null;
+    [Tooltip("Button to edit door.")]
     [SerializeField]
     Button editDoorButton = null;
+    [Tooltip("Button to edit furniture.")]
     [SerializeField]
     Button editFurnitureButton = null;
+    [Tooltip("Button to change color.")]
     [SerializeField]
     Button changeColorButton = null;
+    [Tooltip("Button to save layout.")]
     [SerializeField]
     Button saveLayoutButton = null;
+    [Tooltip("Button to load layout.")]
     [SerializeField]
     Button loadLayoutButton = null;
 
@@ -22,6 +29,7 @@ public class ButtonManager : MonoBehaviour
 
     void Start()
     {
+        // Assign button onclick event listener
         editWallButton.onClick.AddListener( () => { changeGameState(GameState.editingWall); });
         editDoorButton.onClick.AddListener( () => { changeGameState(GameState.editingWallProp); });
         editFurnitureButton.onClick.AddListener( () => { changeGameState(GameState.editingFurniture); });
@@ -42,11 +50,13 @@ public class ButtonManager : MonoBehaviour
             
         });
 
+        // add buttons to state buttons list
         stateButtonList.Add(editWallButton);
         stateButtonList.Add(editDoorButton);
         stateButtonList.Add(editFurnitureButton);
         stateButtonList.Add(changeColorButton);
 
+        // Starting game state
         selectButtonBasedOnState(GameStateManager.instance.gameState);
     }
 
@@ -56,6 +66,7 @@ public class ButtonManager : MonoBehaviour
         selectButtonBasedOnState(gameState);
     }
 
+    // Make already selected button not selectable, and display text information according to selected state
     void selectButtonBasedOnState(GameState gameState)
     {
         Button selectedButton = null;

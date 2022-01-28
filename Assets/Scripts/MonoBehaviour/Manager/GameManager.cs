@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
+// Class to receive user input and do action
 public class GameManager : MonoBehaviour
 {
     void Update()

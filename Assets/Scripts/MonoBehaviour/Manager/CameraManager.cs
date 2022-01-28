@@ -1,16 +1,25 @@
 ﻿using UnityEngine;
 
+// Manage camera movement and rotation
 public class CameraManager : MonoBehaviour
 {
     // Singleton
     public static CameraManager instance;
 
+    // Speed of camera movement. Set in the inspector.
+    [Tooltip("Speed of camera movement.")]
     [SerializeField]
     float cameraSpeed = 10f;
 
-    float cameraOffset = 5f;
-    float rotationSpeed = 0.5f;
+    // Offset so that camera do not go far from the edge of the land
+    readonly float cameraOffset = 5f;
+
+    // Speed of camera rotation
+    readonly float rotationSpeed = 0.5f;
+    // Keep track of camera rotation animation
     float rotationTimeCounter = 0f;
+
+    // State of camera rotation. 0 - 3
     int currentCameraRotation = 0;
 
     private void Awake()
@@ -78,6 +87,7 @@ public class CameraManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Rotate animation
         if (rotationTimeCounter < 2f)
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(transform.eulerAngles.x, 45f + (90f * currentCameraRotation), transform.eulerAngles.z)), rotationTimeCounter);
@@ -86,6 +96,7 @@ public class CameraManager : MonoBehaviour
 
     }
 
+    // Method to get positive number from mod-ing a negative number
     int MathMod(int a, int b)
     {
         return (Mathf.Abs(a * b) + a) % b;

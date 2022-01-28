@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 
+// Class to store data of placed furniture in the scene.
 [System.Serializable]
 public class PlacedFurniture
 {
-    public int furnitureId;
-    public float[] position = new float[3];
-    public float yrotation;
-    public float[] color = new float[3];
+    public int furnitureId; // ID of furniture prefab
+    public float[] position = new float[3]; // Furniture position
+    public float yrotation; // Furniture y rotation
+    public float[] color = new float[3]; // Furniture color
 
     public PlacedFurniture(int furnitureId, Transform transform, Color color)
     {

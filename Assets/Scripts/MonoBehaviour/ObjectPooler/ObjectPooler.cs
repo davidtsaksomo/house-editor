@@ -2,21 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Object pooling implementation
 public class ObjectPooler : MonoBehaviour
 {
+    // Pool class
     [System.Serializable]
     public class Pool
     {
-        public string name;
-        public GameObject prefab;
+        public string name; // pool name
+        public GameObject prefab; // game object managed by this pool
     }
 
     // Singleton
     public static ObjectPooler instance;
+
+    // Dictionary of all pools
     Dictionary<string, Queue<GameObject>> objectPools;
 
+    // To set list of pools from inspector
+    [Tooltip("List of pools.")]
     [SerializeField]
     List<Pool> pools = new List<Pool>();
+
     // Map pool with its name in dictionary for easy access
     Dictionary<string, Pool> poolsDictionary;
 
@@ -30,6 +37,7 @@ public class ObjectPooler : MonoBehaviour
 
     void Start()
     {
+        // Assign pools to dictionary
         objectPools = new Dictionary<string, Queue<GameObject>>();
         poolsDictionary = new Dictionary<string, Pool>();
         foreach (Pool pool in pools)
@@ -52,6 +60,7 @@ public class ObjectPooler : MonoBehaviour
             return null;
         }
 
+        // No object available in pool
         if (objectPools[objectName].Count == 0)
         {
             GameObject instantiantedObject = Instantiate(poolsDictionary[objectName].prefab, position, rotation);

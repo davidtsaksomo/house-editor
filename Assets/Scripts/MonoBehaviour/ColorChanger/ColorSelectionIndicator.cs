@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Class for ColorSelectionIndicator object
 public class ColorSelectionIndicator : MonoBehaviour
 {
     // Singleton
     public static ColorSelectionIndicator instance;
 
+    [Tooltip("Color indicator game object.")]
     [SerializeField]
     GameObject colorIndicator = null;
 

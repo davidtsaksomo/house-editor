@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+// State of the game
 public enum GameState
 {
     editingWall,
@@ -8,6 +9,7 @@ public enum GameState
     changingColor
 }
 
+// Manage the state of the game
 public class GameStateManager: MonoBehaviour
 {
     // Singleton

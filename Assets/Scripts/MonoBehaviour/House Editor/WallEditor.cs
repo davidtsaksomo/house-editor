@@ -2,18 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Class to manage wall editing feature
 public class WallEditor : MonoBehaviour
 {
     // Singleton instance
     public static WallEditor instance;
 
+    // Wall prefab to be instantiated as wall. Set in the inspector
+    [Tooltip("Wall prefab to be instantiated as wall.")]
     [SerializeField]
     GameObject wallPrefab = null;
+    // Parent object to instantiate walls to. Set in the inspector
+    [Tooltip("Parent object to instantiate walls to.")]
     [SerializeField]
     GameObject wallParent = null;
 
+    // Max distance of mouse position to line grid center for it to be considered an intent to place wall.
     float clickMaxDistance = 0.05f;
 
+    // Convenient wall data accessor
     WallData WallData
     {
         get => GameDataManager.instance.gameData.wallData;
@@ -29,11 +36,12 @@ public class WallEditor : MonoBehaviour
 
     public void AddWall(Vector3 mousePosition)
     {
-        // Get position on the grid
+        // Get position on the grid from mouse position
         Vector3 worldPosition = MouseToWorldPoint.mouseToTerrainPosition(mousePosition);
         Vector3 roundedPosition = new Vector3(Mathf.Round(worldPosition.x), 0f, Mathf.Round(worldPosition.z));
         Vector3 gridPosition = new Vector3(Mathf.Floor(worldPosition.x), 0f, Mathf.Floor(worldPosition.z));
 
+        // Calculate wall position
         float xDistanceToGridLine = Mathf.Abs(worldPosition.x - roundedPosition.x);
         float zDistanceToGridLine = Mathf.Abs(worldPosition.z - roundedPosition.z);
 
@@ -137,10 +145,12 @@ public class WallEditor : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         GameObject removedWall;
         
+        // Use ray to get game object
         if (Physics.Raycast(ray, out RaycastHit hitData, 1000, 1 << LayerMask.NameToLayer(GameConstants.wallName)))
         {
             removedWall = hitData.collider.gameObject;
 
+            // Updata wall information on wall data
             if ((int)Mathf.Round(removedWall.transform.eulerAngles.y) == 0)
             {
                 int x = (int)Mathf.Floor(removedWall.transform.position.x);
@@ -174,19 +184,23 @@ public class WallEditor : MonoBehaviour
                 }
             }
 
+            // Remove wall
             DespawnWallToPool(removedWall);
         }
     }
 
+    // Delete all walls and populate new walls from walls data
     public void SpawnWallFromData()
     {
         DestroyAll();
 
+        // Iterate wall data
         IWallUnit[,] wallUnits = GameDataManager.instance.gameData.wallData.wallUnits;
         for (int x = 0; x < GameConstants.worldWidth; x++)
         {
             for (int z = 0; z < GameConstants.worldLength; z++)
             {
+                // Place wall and door according to data
                 if (wallUnits[x, z].Top.exist)
                 {
                     GameObject wall = ObjectPooler.instance.SpawnFromPool(GameConstants.wallName, new Vector3(x + 0.5f, (wallPrefab.transform.localScale.y / 2), z + 1f), Quaternion.identity, wallParent.transform);

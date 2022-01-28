@@ -2,14 +2,16 @@
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
+// Class to access game data and manage save/load
 public class GameDataManager : MonoBehaviour
 {
     // Singleton
     public static GameDataManager instance;
 
+    // Store all data of the layout
     public GameData gameData = new GameData();
     
-
+    // Path to save data file
     const string filePath = "/gameData.sav";
 
     private void Awake()
@@ -20,6 +22,7 @@ public class GameDataManager : MonoBehaviour
         }
     }
 
+    // Save current gameData object to file
     public void SaveLayout()
     {
         BinaryFormatter formatter = new BinaryFormatter();
@@ -30,6 +33,7 @@ public class GameDataManager : MonoBehaviour
         stream.Close();
     }
 
+    // Load from file to current game data
     public bool LoadLayout()
     {
         string path = Application.persistentDataPath + filePath;
@@ -49,6 +53,7 @@ public class GameDataManager : MonoBehaviour
         return true;
     }
 
+    // Adjust the world according to data
     void ApplyDataChanges()
     {
         WallEditor.instance.SpawnWallFromData();

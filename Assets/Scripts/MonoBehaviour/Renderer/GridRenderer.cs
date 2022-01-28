@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Render grid lines
 public class GridRenderer : MonoBehaviour
 {
     const float gridLineThickness = 0.05f;
 
+    [Tooltip("Parent object to instantiate grid line objects to.")]
     [SerializeField]
     GameObject gridLineParent = null;
+    [Tooltip("Grid line object to instantiate.")]
     [SerializeField]
     GameObject gridLinePrefab = null;
 

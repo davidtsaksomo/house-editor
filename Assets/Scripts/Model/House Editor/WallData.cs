@@ -1,4 +1,6 @@
 using UnityEngine;
+
+// Information of all wall placed in the scene
 [System.Serializable]
 public class WallData
 {

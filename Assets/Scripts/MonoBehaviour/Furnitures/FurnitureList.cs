@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// To put on object to manage list of furnitures.
 public class FurnitureList : MonoBehaviour
 {
     // Singleton
     public static FurnitureList instance;
 
+    // List of all Furniture. Set in inspector
+    [Tooltip("List all furnitures here.")]
     [SerializeField]
     FurnitureId[] furnitures = null;
+
+    // Dictionary to make access by furniture id easier.
     Dictionary<int, GameObject> furnituresDictionary = new Dictionary<int, GameObject>();
 
     void Awake()
@@ -17,6 +22,8 @@ public class FurnitureList : MonoBehaviour
         {
             instance = this;
         }
+
+        // populate furniture dictionary
         foreach (FurnitureId furniture in furnitures)
         {
             if (!furnituresDictionary.ContainsKey(furniture.id))

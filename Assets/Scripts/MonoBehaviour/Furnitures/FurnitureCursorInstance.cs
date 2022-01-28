@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Controls the furniture indicator on the mouse cursor
 public class FurnitureCursorInstance : MonoBehaviour
 {
+    // Is furniture placeable
     [HideInInspector]
     public bool placeable = true;
 
     MeshRenderer meshRenderer;
 
+    // Delay to switch from not placeable to placeable. To mitigate time difference between OnCollisionStay call and OnCollissionExit.
     float invokeTime = 0.1f;
 
     private void Start()
@@ -18,7 +21,7 @@ public class FurnitureCursorInstance : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        if ((collision.gameObject.CompareTag(GameConstants.wallName) || collision.gameObject.CompareTag(GameConstants.furnitureName)))
+        if ((collision.gameObject.CompareTag(GameConstants.wallName) || collision.gameObject.CompareTag(GameConstants.furnitureName))) // Object not placeable
         {
             CancelInvoke();
             if(placeable)
@@ -30,7 +33,7 @@ public class FurnitureCursorInstance : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if ((collision.gameObject.CompareTag(GameConstants.wallName) || collision.gameObject.CompareTag(GameConstants.furnitureName)))
+        if ((collision.gameObject.CompareTag(GameConstants.wallName) || collision.gameObject.CompareTag(GameConstants.furnitureName))) // Object not placeable
         {
             CancelInvoke();
             if (placeable)
@@ -42,7 +45,7 @@ public class FurnitureCursorInstance : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        if ((collision.gameObject.CompareTag(GameConstants.wallName) || collision.gameObject.CompareTag(GameConstants.furnitureName))  && !placeable)
+        if ((collision.gameObject.CompareTag(GameConstants.wallName) || collision.gameObject.CompareTag(GameConstants.furnitureName))  && !placeable) // Object Placeable
         {
             Invoke("SetPlaceable", invokeTime);
         }

@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 
+// Adjust terrain size according to world size
 public class TerrainSizeAdjuster : MonoBehaviour
 {
+    [Tooltip("Terrain object to be adjusted.")]
     [SerializeField]
     GameObject terrain = null;
 
