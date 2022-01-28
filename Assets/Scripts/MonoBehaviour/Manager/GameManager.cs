@@ -39,11 +39,11 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
-                DoorEditor.instance.AddDoor(Input.mousePosition);
+                DoorEditor.instance.EditDoor(Input.mousePosition);
             }
             else if (Input.GetMouseButton(1))
             {
-                DoorEditor.instance.AddDoor(Input.mousePosition, true);
+                DoorEditor.instance.EditDoor(Input.mousePosition, true);
             }
         }
         else if (GameStateManager.instance.gameState == GameState.editingFurniture)

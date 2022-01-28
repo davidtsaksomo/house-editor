@@ -18,7 +18,7 @@ public class FurnitureCursorInstance : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        if ((collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Furniture")))
+        if ((collision.gameObject.CompareTag(GameConstants.wallName) || collision.gameObject.CompareTag("Furniture")))
         {
             CancelInvoke();
             if(placeable)
@@ -30,7 +30,7 @@ public class FurnitureCursorInstance : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if ((collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Furniture")))
+        if ((collision.gameObject.CompareTag(GameConstants.wallName) || collision.gameObject.CompareTag("Furniture")))
         {
             CancelInvoke();
             if (placeable)
@@ -42,7 +42,7 @@ public class FurnitureCursorInstance : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        if ((collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Furniture"))  && !placeable)
+        if ((collision.gameObject.CompareTag(GameConstants.wallName) || collision.gameObject.CompareTag("Furniture"))  && !placeable)
         {
             Invoke("SetPlaceable", invokeTime);
         }

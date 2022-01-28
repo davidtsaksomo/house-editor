@@ -29,7 +29,7 @@ public class ColorChanger : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
 
-        if (Physics.Raycast(ray, out RaycastHit hitData, 1000, 1 << LayerMask.NameToLayer("Furniture") | 1 << LayerMask.NameToLayer("Wall")))
+        if (Physics.Raycast(ray, out RaycastHit hitData, 1000, 1 << LayerMask.NameToLayer("Furniture") | 1 << LayerMask.NameToLayer(GameConstants.wallName)))
         {
             MeshRenderer meshRenderer = hitData.collider.gameObject.GetComponent<MeshRenderer>();
             if (meshRenderer)

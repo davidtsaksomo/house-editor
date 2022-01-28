@@ -7,7 +7,7 @@ public class DoorEditor : MonoBehaviour
     // Singleton instance
     public static DoorEditor instance;
 
-    enum Position
+    public enum DoorPosition
     {
         top,
         right,
@@ -23,21 +23,20 @@ public class DoorEditor : MonoBehaviour
         }
     }
 
-    public void AddDoor(Vector3 mousePosition, bool delete = false)
+    public void EditDoor(Vector3 mousePosition, bool delete = false)
     {
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         GameObject targetObject;
 
-        string layerMaskName = delete ? "Door" : "Wall";
+        string layerMaskName = delete ? GameConstants.doorName : GameConstants.wallName;
 
         if (Physics.Raycast(ray, out RaycastHit hitData, 1000, 1 << LayerMask.NameToLayer(layerMaskName)))
         {
             targetObject = hitData.collider.gameObject;
             Transform wallTransform = delete ? targetObject.transform.parent : targetObject.transform;
-            WallData wallData = GameDataManager.instance.gameData.wallData;
             int x;
             int z;
-            Position position;
+            DoorPosition position;
 
             if ((int)Mathf.Round(wallTransform.eulerAngles.y) == 0)
             {
@@ -46,11 +45,11 @@ public class DoorEditor : MonoBehaviour
                 if (z >= 1)
                 {
                     z -= 1;
-                    position = Position.top;
+                    position = DoorPosition.top;
                 }
                 else
                 {
-                    position = Position.bottom;
+                    position = DoorPosition.bottom;
                 }
             }
             else
@@ -60,82 +59,93 @@ public class DoorEditor : MonoBehaviour
                 if (x >= 1)
                 {
                     x -= 1;
-                    position = Position.right;
+                    position = DoorPosition.right;
                 }
                 else
                 {
-                    position = Position.left;
+                    position = DoorPosition.left;
                 }
             }
 
             if (!delete)
             {
-
-                switch (position)
-                {
-                    case Position.top:
-                        if (wallData.wallUnits[x, z].Top.wallProp == null)
-                        {
-                            wallData.wallUnits[x, z].Top.wallProp = new Door();
-                        }
-                        else
-                        {
-                            return;
-                        }
-                        break;
-                    case Position.right:
-                        if (wallData.wallUnits[x, z].Right.wallProp == null)
-                        {
-                            wallData.wallUnits[x, z].Right.wallProp = new Door();
-                        }
-                        else
-                        {
-                            return;
-                        }
-                        break;
-                    case Position.bottom:
-                        if (wallData.wallUnits[x, z].Bottom.wallProp == null)
-                        {
-                            wallData.wallUnits[x, z].Bottom.wallProp = new Door();
-                        }
-                        else
-                        {
-                            return;
-                        }
-                        break;
-                    case Position.left:
-                        if (wallData.wallUnits[x, z].Left.wallProp == null)
-                        {
-                            wallData.wallUnits[x, z].Left.wallProp = new Door();
-                        }
-                        else
-                        {
-                            return;
-                        }
-                        break;
-                }
-
-                ObjectPooler.instance.SpawnFromPool("Door", wallTransform.position, wallTransform.rotation, wallTransform);
+                AddDoor(wallTransform, x, z, position);
             }
             else
             {
-                switch (position)
-                {
-                    case Position.top:
-                        wallData.wallUnits[x, z].Top.wallProp = null;
-                        break;
-                    case Position.right:
-                        wallData.wallUnits[x, z].Right.wallProp = null;
-                        break;
-                    case Position.bottom:
-                        wallData.wallUnits[x, z].Bottom.wallProp = null;
-                        break;
-                    case Position.left:
-                        wallData.wallUnits[x, z].Left.wallProp = null;
-                        break;
-                }
-                ObjectPooler.instance.DespawnToPool("Door", targetObject);
+                DeleteDoor(targetObject, x, z, position);
             }
         }
+    }
+
+    void AddDoor(Transform wall, int x, int z, DoorPosition position)
+    {
+        WallData wallData = GameDataManager.instance.gameData.wallData;
+        switch (position)
+        {
+            case DoorPosition.top:
+                if (wallData.wallUnits[x, z].Top.wallProp == null)
+                {
+                    wallData.wallUnits[x, z].Top.wallProp = new Door();
+                }
+                else
+                {
+                    return;
+                }
+                break;
+            case DoorPosition.right:
+                if (wallData.wallUnits[x, z].Right.wallProp == null)
+                {
+                    wallData.wallUnits[x, z].Right.wallProp = new Door();
+                }
+                else
+                {
+                    return;
+                }
+                break;
+            case DoorPosition.bottom:
+                if (wallData.wallUnits[x, z].Bottom.wallProp == null)
+                {
+                    wallData.wallUnits[x, z].Bottom.wallProp = new Door();
+                }
+                else
+                {
+                    return;
+                }
+                break;
+            case DoorPosition.left:
+                if (wallData.wallUnits[x, z].Left.wallProp == null)
+                {
+                    wallData.wallUnits[x, z].Left.wallProp = new Door();
+                }
+                else
+                {
+                    return;
+                }
+                break;
+        }
+
+        ObjectPooler.instance.SpawnFromPool(GameConstants.doorName, wall.position, wall.rotation, wall);
+    }
+
+    void DeleteDoor(GameObject door, int x, int z, DoorPosition position)
+    {
+        WallData wallData = GameDataManager.instance.gameData.wallData;
+        switch (position)
+        {
+            case DoorPosition.top:
+                wallData.wallUnits[x, z].Top.wallProp = null;
+                break;
+            case DoorPosition.right:
+                wallData.wallUnits[x, z].Right.wallProp = null;
+                break;
+            case DoorPosition.bottom:
+                wallData.wallUnits[x, z].Bottom.wallProp = null;
+                break;
+            case DoorPosition.left:
+                wallData.wallUnits[x, z].Left.wallProp = null;
+                break;
+        }
+        ObjectPooler.instance.DespawnToPool(GameConstants.doorName, door);
     }
 }

@@ -51,7 +51,7 @@ public class GameDataManager : MonoBehaviour
 
     void ApplyDataChanges()
     {
-        WallEditor.instance.DestroyAll();
-        FurnitureEditor.instance.DestroyAll();
+        WallEditor.instance.SpawnWallFromData();
+        FurnitureEditor.instance.SpawnFurnitureFromData();
     }
 }

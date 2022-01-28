@@ -12,9 +12,9 @@ public class WallData
         {
             for (int z = 0; z < length; z++)
             {
-                if (x == 0 && z == 0)
+                if (x != 0 && z != 0)
                 {
-                    wallUnits[x, z] = new BottomLeftMostWallUnit();
+                    wallUnits[x, z] = new WallUnit();
                 } 
                 else if (x == 0)
                 {
@@ -26,7 +26,7 @@ public class WallData
                 }
                 else
                 {
-                    wallUnits[x, z] = new WallUnit();
+                    wallUnits[x, z] = new BottomLeftMostWallUnit();
                 }
             }
         }

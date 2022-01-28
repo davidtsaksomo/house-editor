@@ -94,7 +94,12 @@ public class FurnitureEditor : MonoBehaviour
         CreateFurnitureInstance();
     }
 
-    public void DestroyAll()
+    public void SpawnFurnitureFromData()
+    {
+        DestroyAll();
+    }
+
+    void DestroyAll()
     {
         foreach (Transform child in furnitureParent)
         {
