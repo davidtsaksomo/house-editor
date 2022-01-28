@@ -1,4 +1,4 @@
-## house-editor
+## House Editor
 
 ![Screenshot](/screenshot.PNG)
 
