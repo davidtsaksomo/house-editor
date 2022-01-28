@@ -89,6 +89,10 @@ public class ObjectPooler : MonoBehaviour
         objectPools[objectName].Enqueue(objectToDespawn);
 
         objectToDespawn.SetActive(false);
+        foreach (Transform child in objectToDespawn.transform)
+        {
+            Destroy(child.gameObject);
+        }
 
         return true;
     }

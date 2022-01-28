@@ -27,11 +27,11 @@ public class ButtonManager : MonoBehaviour
         editFurnitureButton.onClick.AddListener(delegate { changeGameState(GameState.editingFurniture); });
         changeColorButton.onClick.AddListener(delegate { changeGameState(GameState.changingColor); });
         saveLayoutButton.onClick.AddListener( () => {
-            GameData.instance.SaveLayout();
+            GameDataManager.instance.SaveLayout();
             InformationTextController.instance.setText("Saved!");
         });
         loadLayoutButton.onClick.AddListener( () => {
-            if (GameData.instance.LoadLayout())
+            if (GameDataManager.instance.LoadLayout())
             {
                 InformationTextController.instance.setText("Loaded!");
             }

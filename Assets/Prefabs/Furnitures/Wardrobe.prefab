@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6722400638059043008}
   - component: {fileID: 6722400638059043009}
   - component: {fileID: -2151226570698362924}
+  - component: {fileID: 8116426318610272478}
   m_Layer: 10
   m_Name: Wardrobe
   m_TagString: Furniture
@@ -112,3 +113,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &8116426318610272478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6722400638059043022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dd538d82bb62db4cb328eb9705146fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 4

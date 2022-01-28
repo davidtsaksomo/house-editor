@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7601609561513734959}
   - component: {fileID: 5494314275266526124}
   - component: {fileID: 4731064040069275162}
+  - component: {fileID: 6712621911791689235}
   m_Layer: 10
   m_Name: Cylinder
   m_TagString: Furniture
@@ -112,3 +113,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &6712621911791689235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7601609561513734961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dd538d82bb62db4cb328eb9705146fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 1

@@ -26,7 +26,7 @@ public class WallEditor : MonoBehaviour
 
     private void Start()
     {
-        wallData = GameData.instance.wallData;
+        wallData = GameDataManager.instance.gameData.wallData;
     }
 
     public void AddWall(Vector3 mousePosition)
@@ -154,6 +154,14 @@ public class WallEditor : MonoBehaviour
                 }
             }
             ObjectPooler.instance.DespawnToPool("Wall", removedWall);
+        }
+    }
+
+    public void DestroyAll()
+    {
+        foreach (Transform child in wallParent.transform)
+        {
+            ObjectPooler.instance.DespawnToPool("Wall", child.gameObject);
         }
     }
 }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3426739166475002919}
   - component: {fileID: 1146753902743844418}
   - component: {fileID: -4443448425285247014}
+  - component: {fileID: 4056039030097659422}
   m_Layer: 10
   m_Name: Mattress
   m_TagString: Furniture
@@ -112,3 +113,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &4056039030097659422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3426739166475002913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dd538d82bb62db4cb328eb9705146fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 2

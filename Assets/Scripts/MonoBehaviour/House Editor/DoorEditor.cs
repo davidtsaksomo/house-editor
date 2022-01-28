@@ -34,7 +34,7 @@ public class DoorEditor : MonoBehaviour
         {
             targetObject = hitData.collider.gameObject;
             Transform wallTransform = delete ? targetObject.transform.parent : targetObject.transform;
-            WallData wallData = GameData.instance.wallData;
+            WallData wallData = GameDataManager.instance.gameData.wallData;
             int x;
             int z;
             Position position;

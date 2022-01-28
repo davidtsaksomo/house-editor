@@ -46,9 +46,10 @@ public class FurnitureEditor : MonoBehaviour
 
     public void PlaceFurniture(Vector3 mousePosition)
     {
-        if (selectedFurnitureInstance.GetComponent<FurniturePrefab>().placeable)
+        if (selectedFurnitureInstance.GetComponent<FurnitureCursorInstance>().placeable)
         {
-            Instantiate(FurnitureList.instance.furnitures[selectedFurnitureIndex], selectedFurnitureInstance.transform.position, selectedFurnitureInstance.transform.rotation, furnitureParent);
+            GameObject placedFurniture = Instantiate(FurnitureList.instance.GetFurniturePrefabByIndex(selectedFurnitureIndex), selectedFurnitureInstance.transform.position, selectedFurnitureInstance.transform.rotation, furnitureParent);
+            GameDataManager.instance.gameData.placedFurniturelist.placedFurnitures.Add(placedFurniture.GetInstanceID(), new PlacedFurniture(placedFurniture.GetComponent<FurnitureId>().id, placedFurniture.transform, Color.white));
         }
     }
 
@@ -59,6 +60,11 @@ public class FurnitureEditor : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hitData, 1000, 1 << LayerMask.NameToLayer("Furniture")))
         {
             Destroy(hitData.collider.gameObject);
+            FurnitureId furnitureId = hitData.collider.GetComponent<FurnitureId>();
+            if (furnitureId)
+            {
+                GameDataManager.instance.gameData.placedFurniturelist.placedFurnitures.Remove(furnitureId.id);
+            }
         }
     }
 
@@ -70,14 +76,14 @@ public class FurnitureEditor : MonoBehaviour
 
     public void CycleFurniture()
     {
-        selectedFurnitureIndex = (selectedFurnitureIndex + 1) % FurnitureList.instance.furnitures.Length;
+        selectedFurnitureIndex = (selectedFurnitureIndex + 1) % FurnitureList.instance.FurnitureCount;
         ReloadFurnitureInstance();
     }
 
    void CreateFurnitureInstance()
     {
-        selectedFurnitureInstance = Instantiate(FurnitureList.instance.furnitures[selectedFurnitureIndex]);
-        selectedFurnitureInstance.AddComponent(typeof(FurniturePrefab));
+        selectedFurnitureInstance = Instantiate(FurnitureList.instance.GetFurniturePrefabByIndex(selectedFurnitureIndex));
+        selectedFurnitureInstance.AddComponent(typeof(FurnitureCursorInstance));
         selectedFurnitureInstance.transform.rotation = currentInstanceRotation;
         selectedFurnitureCollider = selectedFurnitureInstance.GetComponent<Collider>();
     }
@@ -86,5 +92,13 @@ public class FurnitureEditor : MonoBehaviour
     {
         Destroy(selectedFurnitureInstance);
         CreateFurnitureInstance();
+    }
+
+    public void DestroyAll()
+    {
+        foreach (Transform child in furnitureParent)
+        {
+            Destroy(child.gameObject);
+        }
     }
 }

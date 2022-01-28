@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FurniturePrefab : MonoBehaviour
+public class FurnitureCursorInstance : MonoBehaviour
 {
     [HideInInspector]
     public bool placeable = true;
