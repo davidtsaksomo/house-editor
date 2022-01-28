@@ -48,11 +48,11 @@ public class GameManager : MonoBehaviour
         }
         else if (GameStateManager.instance.gameState == GameState.editingFurniture)
         {
-            if (Input.GetButton("Fire3") && Input.GetMouseButtonDown(1))
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetMouseButtonDown(1))
             {
                 FurnitureEditor.instance.DeleteFurniture(Input.mousePosition);
             }
-            else if (!Input.GetButton("Fire3"))
+            else if (!Input.GetKey(KeyCode.LeftShift))
             {
                 if (Input.GetMouseButtonDown(0))
                 {
@@ -78,6 +78,31 @@ public class GameManager : MonoBehaviour
             {
                 ColorChanger.instance.ChangeColorSelection();
             }
+        }
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            CameraManager.instance.MoveUp();
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            CameraManager.instance.MoveLeft();
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            CameraManager.instance.MoveDown();
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            CameraManager.instance.MoveRight();
+        }
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            CameraManager.instance.RotateLeft();
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            CameraManager.instance.RotateRight();
         }
     }
 }

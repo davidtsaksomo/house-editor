@@ -22,10 +22,10 @@ public class ButtonManager : MonoBehaviour
 
     void Start()
     {
-        editWallButton.onClick.AddListener( delegate { changeGameState(GameState.editingWall); });
-        editDoorButton.onClick.AddListener(delegate { changeGameState(GameState.editingWallProp); });
-        editFurnitureButton.onClick.AddListener(delegate { changeGameState(GameState.editingFurniture); });
-        changeColorButton.onClick.AddListener(delegate { changeGameState(GameState.changingColor); });
+        editWallButton.onClick.AddListener( () => { changeGameState(GameState.editingWall); });
+        editDoorButton.onClick.AddListener( () => { changeGameState(GameState.editingWallProp); });
+        editFurnitureButton.onClick.AddListener( () => { changeGameState(GameState.editingFurniture); });
+        changeColorButton.onClick.AddListener( () => { changeGameState(GameState.changingColor); });
         saveLayoutButton.onClick.AddListener( () => {
             GameDataManager.instance.SaveLayout();
             InformationTextController.instance.setText("Saved!");
