@@ -11,6 +11,7 @@ public class GameConstants
 
     public const string wallName = "Wall";
     public const string doorName = "Door";
+    public const string furnitureName = "Furniture";
 
     public static Color DefaultWallColor
     {

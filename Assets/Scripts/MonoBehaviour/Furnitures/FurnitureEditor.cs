@@ -57,7 +57,7 @@ public class FurnitureEditor : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
 
-        if (Physics.Raycast(ray, out RaycastHit hitData, 1000, 1 << LayerMask.NameToLayer("Furniture")))
+        if (Physics.Raycast(ray, out RaycastHit hitData, 1000, 1 << LayerMask.NameToLayer(GameConstants.furnitureName)))
         {
             Destroy(hitData.collider.gameObject);
             FurnitureId furnitureId = hitData.collider.GetComponent<FurnitureId>();

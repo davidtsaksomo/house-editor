@@ -3,10 +3,10 @@
 [System.Serializable]
 public class PlacedFurniture
 {
-    int furnitureId;
-    float[] position = new float[3];
-    float yrotation;
-    float[] color = new float[3];
+    public int furnitureId;
+    public float[] position = new float[3];
+    public float yrotation;
+    public float[] color = new float[3];
 
     public PlacedFurniture(int furnitureId, Transform transform, Color color)
     {

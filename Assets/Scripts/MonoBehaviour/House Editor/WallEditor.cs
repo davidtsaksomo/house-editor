@@ -168,6 +168,7 @@ public class WallEditor : MonoBehaviour
                 if (wallUnits[x, z].Top.exist)
                 {
                     GameObject wall = ObjectPooler.instance.SpawnFromPool(GameConstants.wallName, new Vector3(x + 0.5f, (wallPrefab.transform.localScale.y / 2), z + 1f), Quaternion.identity, wallParent.transform);
+                    SetMaterialColor(wall, wallUnits[x, z].Top.color);
 
                     if (wallUnits[x, z].Top.wallProp != null && wallUnits[x, z].Top.wallProp.Name == GameConstants.doorName)
                     {
@@ -178,6 +179,7 @@ public class WallEditor : MonoBehaviour
                 if (wallUnits[x, z].Right.exist)
                 {
                     GameObject wall = ObjectPooler.instance.SpawnFromPool(GameConstants.wallName, new Vector3(x + 1f, (wallPrefab.transform.localScale.y / 2), z + 0.5f), Quaternion.Euler(new Vector3(0, 90, 0)), wallParent.transform);
+                    SetMaterialColor(wall, wallUnits[x, z].Right.color);
 
                     if (wallUnits[x, z].Right.wallProp != null && wallUnits[x, z].Right.wallProp.Name == GameConstants.doorName)
                     {
@@ -188,6 +190,7 @@ public class WallEditor : MonoBehaviour
                 if (z == 0 && wallUnits[x, z].Bottom.exist)
                 {
                     GameObject wall = ObjectPooler.instance.SpawnFromPool(GameConstants.wallName, new Vector3(x + 0.5f, (wallPrefab.transform.localScale.y / 2), z), Quaternion.identity, wallParent.transform);
+                    SetMaterialColor(wall, wallUnits[x, z].Bottom.color);
 
                     if (wallUnits[x, z].Bottom.wallProp != null && wallUnits[x, z].Bottom.wallProp.Name == GameConstants.doorName)
                     {
@@ -198,6 +201,7 @@ public class WallEditor : MonoBehaviour
                 if (x == 0 && wallUnits[x, z].Left.exist)
                 {
                     GameObject wall = ObjectPooler.instance.SpawnFromPool(GameConstants.wallName, new Vector3(x, (wallPrefab.transform.localScale.y / 2), z + 0.5f), Quaternion.Euler(new Vector3(0, 90, 0)), wallParent.transform);
+                    SetMaterialColor(wall, wallUnits[x, z].Left.color);
 
                     if (wallUnits[x, z].Left.wallProp != null && wallUnits[x, z].Left.wallProp.Name == GameConstants.doorName)
                     {
@@ -230,5 +234,15 @@ public class WallEditor : MonoBehaviour
                 wall.GetComponent<MeshRenderer>().material.color = GameConstants.DefaultWallColor;
                 ObjectPooler.instance.DespawnToPool(GameConstants.wallName, wall);
             }
+    }
+
+    private void SetMaterialColor(GameObject gameObject, float[] color)
+    {
+        MeshRenderer meshRenderer = gameObject.GetComponent<MeshRenderer>();
+        if (!meshRenderer)
+        {
+            return;
+        }
+        meshRenderer.material.color = new Color(color[0], color[1], color[2]);
     }
 }
