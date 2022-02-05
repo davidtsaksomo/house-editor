@@ -1,5 +1,7 @@
 ## House Editor
 
+A mini game project created with Unity, in this project you can create walls on a piece of land, add doors, add furniture, give color to the wall/furniture.
+
 ![Screenshot](/screenshot.PNG)
 
 ### Fitur yang diimplementasi:
